@@ -1,0 +1,227 @@
+<aura:component description="Shows the details of a single customer contract" access="public">
+    <aura:attribute name="contract" access="public" type="Object" description="The contract to show the details of"/>
+
+    <c:CollapsibleSection title="{!$Label.c.Customer_Data_Contract}">
+        <div class="slds-grid slds-wrap slds-p-horizontal_medium">
+            <div class="slds-col slds-size_1-of-5">
+                <c:DataListItem label="{!$Label.c.Customer_Data_Operator}" labelCssClass="slds-text-color_weak"
+                                value="{!v.contract.Operator}">
+                </c:DataListItem>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <c:DataListItem label="{!$Label.c.Customer_Data_Contract_Status}" labelCssClass="slds-text-color_weak"
+                                value="{!v.contract.ContractStatus}">
+                </c:DataListItem>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <c:DataListItem label="{!$Label.c.Customer_Data_Contract_Cancellation_Date}" labelCssClass="slds-text-color_weak"
+                                value="{!v.contract.ContractCancellationDate}">
+                </c:DataListItem>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <c:DataListItem label="{!$Label.c.Customer_Data_Bank_Name}" labelCssClass="slds-text-color_weak"
+                                value="{!v.contract.mopHistory.bankName}">
+                </c:DataListItem>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <c:DataListItem label="{!$Label.c.Customer_Data_Sky_Q_flag_status}" labelCssClass="slds-text-color_weak"
+                                tooltip="{!v.contract.skyQFlag ? 'Yes' : 'No'}">
+                    <lightning:input name="SkyPlusFlag" disabled="true" type="checkbox" checked="{!v.contract.skyQFlag}"/>
+                </c:DataListItem>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-m-vertical_medium slds-p-horizontal_medium">
+            <div class="slds-col slds-size_1-of-5">
+                <c:DataListItem label="{!$Label.c.Customer_Data_Contract_Type}" labelCssClass="slds-text-color_weak"
+                                value="{!v.contract.ContractType}">
+                </c:DataListItem>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <c:DataListItem label="{!$Label.c.Customer_Data_Reception_Type}" labelCssClass="slds-text-color_weak"
+                                value="{!v.contract.ReceptionType}">
+                </c:DataListItem>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <c:DataListItem label="{!$Label.c.Customer_Data_Contract_Number}" labelCssClass="slds-text-color_weak"
+                                value="{!v.contract.ContractNumber}">
+                </c:DataListItem>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <c:DataListItem label="{!$Label.c.Customer_Data_Package_Name}" labelCssClass="slds-text-color_weak"
+                                value="{!v.contract.PackageList.Package.packageName}">
+                </c:DataListItem>
+            </div>
+        </div>
+
+        <c:CollapsibleSection title="{!$Label.c.Customer_Data_Product_List}">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_striped">
+                <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate" title="{!$Label.c.Customer_Data_Product}">
+                            {!$Label.c.Customer_Data_Product}
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="{!$Label.c.Customer_Data_Rate_Code}">
+                            {!$Label.c.Customer_Data_Rate_Code}
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="{!$Label.c.Customer_Data_Activation_Date}">
+                            {!$Label.c.Customer_Data_Activation_Date}
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <aura:iteration items="{!v.contract.PackageList.Package.ProductList.ProductElement}" var="itm">
+                    <tr>
+                        <td data-label="{!$Label.c.Customer_Data_Product}">
+                            <div class="slds-truncate" title="{!itm.Product}">{!itm.Product}</div>
+                        </td>
+                        <td data-label="{!$Label.c.Customer_Data_Rate_Code}">
+                            <div class="slds-truncate" title="{!itm.rateCode}">{!itm.rateCode}</div>
+                        </td>
+                        <td data-label="{!$Label.c.Customer_Data_Activation_Date}">
+                            <div class="slds-truncate" title="{!itm.activationDate}">{!itm.activationDate}</div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </c:CollapsibleSection>
+
+        <c:CollapsibleSection title="{!$Label.c.Customer_Data_Asset_List}">
+            <table style="table-layout: fixed; width: 100%;"
+                   class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_striped">
+                <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate" title="{!$Label.c.Customer_Data_Smart_Card_Asset}">
+                            {!$Label.c.Customer_Data_Smart_Card_Asset}
+                        </div>
+                    </th>
+
+                    <th scope="col">
+                        <div class="slds-truncate" title="{!$Label.c.Customer_Data_Receiver_asset}">
+                            {!$Label.c.Customer_Data_Receiver_asset}
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td data-label="{!$Label.c.Customer_Data_Smart_Card_Asset}">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_striped">
+                            <thead>
+                            <tr class="slds-text-title_caps">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Number}">
+                                        {!$Label.c.Customer_Data_Number}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Last_Activation_Date}">
+                                        {!$Label.c.Customer_Data_Last_Activation_Date}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Status}">
+                                        {!$Label.c.Customer_Data_Status}
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td data-label="{!$Label.c.Customer_Data_Number}">
+                                    <div class="slds-truncate" title="{!v.contract.PackageList.Package.AssetList.Asset[0].SmartCard.number}">
+                                        {!v.contract.PackageList.Package.AssetList.Asset[0].SmartCard.number}
+                                    </div>
+                                </td>
+                                <td data-label="{!$Label.c.Customer_Data_Last_Activation_Date}">
+                                    <div class="slds-truncate"
+                                         title="{!v.contract.PackageList.Package.AssetList.Asset[0].SmartCard.lastActivationDate}">
+                                        {!v.contract.PackageList.Package.AssetList.Asset[0].SmartCard.lastActivationDate}
+                                    </div>
+                                </td>
+                                <td data-label="{!$Label.c.Customer_Data_Status}">
+                                    <div class="slds-truncate" title="{!v.contract.PackageList.Package.AssetList.Asset[0].status}">
+                                        {!v.contract.PackageList.Package.AssetList.Asset[0].status}
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+
+                    <td data-label="Smart card asset">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_striped">
+                            <thead>
+                            <tr class="slds-text-title_caps">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Number}">
+                                        {!$Label.c.Customer_Data_Number}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Technology}">
+                                        {!$Label.c.Customer_Data_Technology}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Sky_Plus}">
+                                        {!$Label.c.Customer_Data_Sky_Plus}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Receiver_Model}">
+                                        {!$Label.c.Customer_Data_Receiver_Model}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Status}">
+                                        {!$Label.c.Customer_Data_Status}
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td data-label="{!$Label.c.Customer_Data_Number}">
+                                    <div class="slds-truncate" title="{!v.contract.PackageList.Package.AssetList.Asset[1].Receiver.receiverNo}">
+                                        {!v.contract.PackageList.Package.AssetList.Asset[1].Receiver.receiverNo}
+                                    </div>
+                                </td>
+                                <td data-label="{!$Label.c.Customer_Data_Technology}">
+                                    <div class="slds-truncate" title="{!v.contract.PackageList.Package.AssetList.Asset[1].Receiver.technology}">
+                                        {!v.contract.PackageList.Package.AssetList.Asset[1].Receiver.technology}
+                                    </div>
+                                </td>
+                                <td data-label="{!$Label.c.Customer_Data_Sky_Plus}">
+                                    <lightning:input name="{!$Label.c.Customer_Data_Sky_Plus}" disabled="true"
+                                                     type="checkbox"
+                                                     checked="{!v.contract.PackageList.Package.AssetList.Asset[1].Receiver.SkyPlusFlag}"/>
+                                </td>
+                                <td data-label="{!$Label.c.Customer_Data_Receiver_Model}">
+                                    <div class="slds-truncate" title="{!v.contract.PackageList.Package.AssetList.Asset[1].Receiver.receiverModel}">
+                                        {!v.contract.PackageList.Package.AssetList.Asset[1].Receiver.receiverModel}
+                                    </div>
+                                </td>
+                                <td data-label="{!$Label.c.Customer_Data_Status}">
+                                    <div class="slds-truncate" title="{!v.contract.PackageList.Package.AssetList.Asset[1].status}">
+                                        {!v.contract.PackageList.Package.AssetList.Asset[1].status}
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </c:CollapsibleSection>
+    </c:CollapsibleSection>
+</aura:component>

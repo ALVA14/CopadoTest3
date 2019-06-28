@@ -1,0 +1,1183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>LiveText__Conversation_Header_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>LiveText__Conversation_Header_Layout</fullName>
+        <fields>LiveText__LiveTextPhoneNumberLabel__c</fields>
+        <fields>LiveText__LiveText_Number__c</fields>
+        <fields>LiveText__Formatted_Originating_Number__c</fields>
+        <fields>LiveText__MessagePreview__c</fields>
+        <label>Conversation Header Layout</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>LiveMessage Session</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>AgentReplyPendingSince__c</fullName>
+        <description>The time of the first unanswered received message. Will be nulled when an agent sends a reply.</description>
+        <externalId>false</externalId>
+        <label>Agent Reply Pending Since</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>CaseOption__c</fullName>
+        <externalId>false</externalId>
+        <formula>LiveText__Case__r.SupportOption__c</formula>
+        <label>CaseOption</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastMessageReceived__c</fullName>
+        <defaultValue>NOW()</defaultValue>
+        <description>Tracks The Last Message Received From the Customer</description>
+        <externalId>false</externalId>
+        <label>LastMessageReceived</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LastMessageSent__c</fullName>
+        <externalId>false</externalId>
+        <label>LastMessageSent</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LiveText_LastAgent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>LastAgent</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>LiveMessage_Sessions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__AcceptedBy__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>User who accepted the conversation.</description>
+        <externalId>false</externalId>
+        <label>Accepted By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Text_Session_Headers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Account</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Conversation_Headers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__Activated_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Activated Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Case</description>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipName>Conversation_Headers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__Channel_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>LiveText__Support_Number__r.LiveText__Channel_Type__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Channel Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Contact</description>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Conversation_Headers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__ConversationReopened__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicates whether conversation is re-opened or not? Set to False by default.</description>
+        <externalId>false</externalId>
+        <label>ConversationReopened?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__ConversationType__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>ConversationType</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Conversation_Identifier__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Conversation Unique Identifier</description>
+        <externalId>false</externalId>
+        <label>Conversation Identifier</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__ElapsedTime__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Calculates elapsed time since record creation.</description>
+        <externalId>false</externalId>
+        <formula>floor((NOW() -  LiveText__SessionReopenedTime__c)* 1440*60)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ElapsedTime</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__End_Chat_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>LiveText__Support_Number__r.LiveText__Chat_End_Message__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>End Chat Message</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__EndedTime__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The time that a LiveMessage session was ended</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Records the time that a text session was ended</inlineHelpText>
+        <label>Ended Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__Formatted_Originating_Number_To_Display__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Formatted Originating Number for international numbers using google js lib</description>
+        <externalId>false</externalId>
+        <label>Recipient Label To Display</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Formatted_Originating_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF((LEN(LiveText__Formatted_Originating_Number_To_Display__c) = 0 || LiveText__Formatted_Originating_Number_To_Display__c = null),  LiveText__Originating_Number__c, LiveText__Formatted_Originating_Number_To_Display__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Recipient Label</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Formatted_Transcript_1__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Formatted version of the transcript summary 1 field</description>
+        <externalId>false</externalId>
+        <label>Transcript 1</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>LiveText__Formatted_Transcript_2__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Formatted version of the transcript summary 2 field</description>
+        <externalId>false</externalId>
+        <label>Transcript 2</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>LiveText__HandleTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>floor((  LiveText__EndedTime__c   -   CreatedDate )* 1440*60)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HandleTime</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__HandledBy__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(LiveText__AcceptedBy__c=&quot;&quot;,
+        IF(OR(ISPICKVAL(LiveText__Status__c,&apos;Active&apos;), ISPICKVAL(LiveText__Status__c, &apos;Ended&apos;)), (LastModifiedBy.FirstName + &quot; &quot; +   LastModifiedBy.LastName)  , null),
+        (LiveText__AcceptedBy__r.FirstName + &quot; &quot; + LiveText__AcceptedBy__r.LastName))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HandledBy</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Alaska_Standard_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Alaska Standard Time (AKST) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 9/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Alaska Standard Time (AKST) time zone.</inlineHelpText>
+        <label>Hour (Alaska Standard Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Central_Daylight_Savings_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Central Daylight Savings Time (CDT) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 5/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Central Daylight Savings Time (CDT) time zone.</inlineHelpText>
+        <label>Hour (Central Daylight Savings Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Central_Standard_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Central Standard Time (CST) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 6/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Central Standard Time (CST) time zone.</inlineHelpText>
+        <label>Hour (Central Standard Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Eastern_Daylight_Savings_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Eastern Daylight Savings Time (EDT) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 4/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Eastern Daylight Savings Time (EDT) time zone.</inlineHelpText>
+        <label>Hour (Eastern Daylight Savings Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Eastern_Standard_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Eastern Standard Time (EST) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 5/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Eastern Standard Time (EST) time zone.</inlineHelpText>
+        <label>Hour (Eastern Standard Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Hawaii_Standard_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Hawaii Standard Time (HST) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 10/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Hawaii Standard Time (HST) time zone.</inlineHelpText>
+        <label>Hour (Hawaii Standard Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Mountain_Daylight_Savings_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Mountain Daylight Savings Time (MDT) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 6/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Mountain Daylight Savings Time (MDT) time zone.</inlineHelpText>
+        <label>Hour (Mountain Daylight Savings Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Mountain_Standard_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Mountain Standard Time (MST) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 7/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Mountain Standard Time (MST) time zone.</inlineHelpText>
+        <label>Hour (Mountain Standard Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Pacific_Daylight_Savings_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Pacific Daylight Savings Time (PDT) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 7/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Pacific Daylight Savings Time (PDT) time zone.</inlineHelpText>
+        <label>Hour (Pacific Daylight Savings Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Hour_Pacific_Standard_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Displays the hour a LiveMessage session was created for the Pacific Standard Time (PST) time zone.</description>
+        <externalId>false</externalId>
+        <formula>FLOOR ( MOD( CreatedDate - ($System.OriginDateTime + 8/24),1) *24)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Displays the hour a LiveMessage session was created for the Pacific Standard Time (PST) time zone.</inlineHelpText>
+        <label>Hour (Pacific Standard Time)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Lead lookup</description>
+        <externalId>false</externalId>
+        <label>Lead</label>
+        <referenceTo>Lead</referenceTo>
+        <relationshipName>Conversation_Headers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__LiveTextPhoneNumberLabel__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>LiveText__Support_Number__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Channel Label</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__LiveText_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(LiveText__Support_Number__r.LiveText__Channel_Type__c==&apos;Text&apos;, LiveText__Support_Number__r.LiveText__Formatted_Support_Number__c, IF(LiveText__Support_Number__r.LiveText__Channel_Type__c==&apos;Facebook&apos;, &apos;Facebook Messenger&apos;, LiveText__Support_Number__r.LiveText__Channel_Type__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Phone Number / Channel ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__MO_Count__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Mobile Originate (MO) Message Count (Inbound messages)</description>
+        <externalId>false</externalId>
+        <label>Mobile Originate (MO) Message Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__MT_Automated_Count__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Mobile Terminate (MT) Message Count - Automated outbound messages (ITR Messages and auto-messages configured in the LM admin)</description>
+        <externalId>false</externalId>
+        <label>Mobile Terminate (MT) Automated Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__MT_Count__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Mobile Terminate (MT) Message Count (Outbound messages)</description>
+        <externalId>false</externalId>
+        <label>Mobile Terminate (MT) Message Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__MessagePreview__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>MessagePreview</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Offline_Hours_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>LiveText__Support_Number__r.LiveText__Offline_Hours_Message__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Offline Hours Message</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Opportunity</description>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Conversation_Headers</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__Originating_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Recipient</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Server_Instance__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>MID( $Api.Enterprise_Server_URL_310, 9, 18)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Server Instance</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__SessionReopenedTime__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Records the time that a LiveMessage session is re-opened</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Records the time that a text session is re-opened</inlineHelpText>
+        <label>SessionReopenedTime</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>false</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>Active</fullName>
+                    <default>false</default>
+                    <label>Active</label>
+                </value>
+                <value>
+                    <fullName>Ended</fullName>
+                    <default>false</default>
+                    <label>Ended</label>
+                </value>
+                <value>
+                    <fullName>Offline</fullName>
+                    <default>false</default>
+                    <label>Offline</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>LiveText__Support_Number__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Channel</label>
+        <referenceTo>LiveText__LiveText_Number__c</referenceTo>
+        <relationshipName>Conversation_Headers1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__Thumbnail_Photo_Url__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Stores the Url of the thumb profile pic of the person messaging in.</description>
+        <externalId>false</externalId>
+        <label>Thumbnail Photo Url</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>LiveText__TimeDifference__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Time Difference, in days, between current time and CreatedDate of record.</description>
+        <externalId>false</externalId>
+        <formula>NOW() - CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TimeDifference</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__TimeDiffrence__c</fullName>
+        <deprecated>false</deprecated>
+        <description>&quot;Time Difference between
+current time and CreatedDate of record.
+Difference calculated in days.&quot;</description>
+        <externalId>false</externalId>
+        <formula>NOW() - CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TimeDiffrence</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Total_Message_Count__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>LiveText__MO_Count__c + LiveText__MT_Count__c + LiveText__MT_Automated_Count__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Message Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__Transcript_Summary_1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Transcript Summary1</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>LiveText__Transcript_Summary_2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Transcript Summary2</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>LiveText__UnNormalized_LiveText_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(LEN(LiveText__LiveText_Number__c )&gt;9,MID(LiveText__LiveText_Number__c,3,15),LiveText__LiveText_Number__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Un-normalized Phone Number / Channel ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__UnNormalized_Orginating_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>MID(LiveText__Formatted_Originating_Number__c,3,15)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Un-normalized Recipient</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveText__isAccepted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>True if agent accepts record.</description>
+        <externalId>false</externalId>
+        <label>isAccepted</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LogoutAgentId__c</fullName>
+        <externalId>false</externalId>
+        <label>Logout Agent Id</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Logout__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Logout</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ResponsibleAgencyId__c</fullName>
+        <externalId>false</externalId>
+        <label>ResponsibleAgencyId</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResponsibleAgency__c</fullName>
+        <externalId>false</externalId>
+        <label>ResponsibleAgency</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Transfer_To_Queue__c</fullName>
+        <externalId>false</externalId>
+        <label>Transfer To Queue</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Transferred__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>true - session was transferred to a queue and hasn&apos;t been accepted by other agent</description>
+        <externalId>false</externalId>
+        <label>Transferred</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>LiveMessage Session</label>
+    <listViews>
+        <fullName>Care_Service_Conversation_Header</fullName>
+        <columns>NAME</columns>
+        <columns>LiveText__Originating_Number__c</columns>
+        <columns>LiveText__LiveText_Number__c</columns>
+        <columns>LiveText__Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LiveText__Account__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ResponsibleAgency__c</field>
+            <operation>equals</operation>
+            <value>Care Service</value>
+        </filters>
+        <label>Care Service</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Care_Technics_Conversation_Header</fullName>
+        <columns>NAME</columns>
+        <columns>LiveText__Originating_Number__c</columns>
+        <columns>LiveText__LiveText_Number__c</columns>
+        <columns>LiveText__Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LiveText__Account__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Care Technics</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>L1_OTT_Conversation_Header</fullName>
+        <columns>NAME</columns>
+        <columns>LiveText__Originating_Number__c</columns>
+        <columns>LiveText__LiveText_Number__c</columns>
+        <columns>LiveText__Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ResponsibleAgency__c</field>
+            <operation>equals</operation>
+            <value>L1 OTT</value>
+        </filters>
+        <label>L1 OTT</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>LiveText__All_Text_Sessions</fullName>
+        <columns>NAME</columns>
+        <columns>LiveText__Case__c</columns>
+        <columns>LiveText__Originating_Number__c</columns>
+        <columns>LiveText__LiveText_Number__c</columns>
+        <columns>LiveText__Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LiveText__Account__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>LiveText__Status__c</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </filters>
+        <label>All Text Sessions</label>
+        <language>de</language>
+    </listViews>
+    <listViews>
+        <fullName>LiveText__My_Active_Text_Sessions</fullName>
+        <columns>NAME</columns>
+        <columns>LiveText__Originating_Number__c</columns>
+        <columns>LiveText__LiveText_Number__c</columns>
+        <columns>LiveText__Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>LiveText__Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filters>
+        <label>My Active Text Sessions</label>
+    </listViews>
+    <listViews>
+        <fullName>LiveText__My_Ended_Text_Sessions</fullName>
+        <columns>NAME</columns>
+        <columns>LiveText__Originating_Number__c</columns>
+        <columns>LiveText__LiveText_Number__c</columns>
+        <columns>LiveText__Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>LiveText__Status__c</field>
+            <operation>equals</operation>
+            <value>Ended</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>LiveText__Conversation_Header__c.LiveText__Ended_Text_Sessions</value>
+        </filters>
+        <label>My Ended Text Sessions</label>
+    </listViews>
+    <listViews>
+        <fullName>Retention_Technics_Conversation_Header</fullName>
+        <columns>NAME</columns>
+        <columns>LiveText__Originating_Number__c</columns>
+        <columns>LiveText__LiveText_Number__c</columns>
+        <columns>LiveText__Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LiveText__HandledBy__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ResponsibleAgency__c</field>
+            <operation>equals</operation>
+            <value>Retention Technics</value>
+        </filters>
+        <label>Retention Technics</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X2nd_Level_Service_Conversation_Header</fullName>
+        <columns>NAME</columns>
+        <columns>LiveText__Originating_Number__c</columns>
+        <columns>LiveText__LiveText_Number__c</columns>
+        <columns>LiveText__Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ResponsibleAgency__c</field>
+            <operation>equals</operation>
+            <value>X2nd_Level_Service</value>
+        </filters>
+        <label>2nd Level Service</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X2nd_Level_Technics_Conversation_Header</fullName>
+        <columns>NAME</columns>
+        <columns>LiveText__Originating_Number__c</columns>
+        <columns>LiveText__LiveText_Number__c</columns>
+        <columns>LiveText__Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ResponsibleAgency__c</field>
+            <operation>equals</operation>
+            <value>X2nd_Level_Technics</value>
+        </filters>
+        <label>2nd Level Technics</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <displayFormat>CH-{0000}</displayFormat>
+        <label>LiveMessage Session Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>LiveMessage Sessions</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>LiveText__Ended_Text_Sessions</fullName>
+        <active>true</active>
+        <description>Record to be displayed for ended chats.</description>
+        <label>Ended Text Sessions</label>
+        <picklistValues>
+            <picklist>LiveText__Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Offline</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>LiveText__Originating_Number__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>LiveText__LiveText_Number__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>LiveText__Status__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>LiveText__Originating_Number__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LiveText__LiveText_Number__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LiveText__Status__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>LiveText__Resume_Text_Session</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Resume LiveMessage Session</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/apex.js&quot;)}
+{!REQUIRESCRIPT(&quot;/support/console/31.0/integration.js&quot;)}
+try{
+   var y = &apos;{!LiveText__Conversation_Header__c.Id}&apos;.split(&quot;\r&quot;).join(&quot;&quot;).split(&quot;\n&quot;);
+   var tshId;
+   if(&apos;{!LiveText__Conversation_Header__c.Id}&apos;.length===15){
+      var z = new Array();
+      for(var x=0;x&lt;y.length;x++){
+         var s=&quot;&quot;;
+         for(var i=0;i&lt;3; i++){
+            var f=0;
+            for(var j=0;j&lt;5;j++){
+               var c=y[x].charAt(i*5+j);
+               if(c&gt;=&quot;A&quot; &amp;&amp; c&lt;=&quot;Z&quot;)
+                  f+=1&lt;&lt;j;
+            }
+            s+=&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ012345&quot;.charAt(f);
+         }
+         z.push(y[x]+s);
+      }
+      tshId = z.join(&quot;\r\n&quot;);
+   }else{
+      tshId = &apos;{!LiveText__Conversation_Header__c.Id}&apos;;
+   }
+   var conversationSessionPrefix = &apos;/{!$ObjectType.LiveText__Conversation_Session__c}/e?cvid=&apos;+tshId;
+   var status = &apos;{!LiveText__Conversation_Header__c.LiveText__Status__c}&apos;;
+   var userId = &apos;{!LiveText__Conversation_Header__c.LiveText__AcceptedBy__c}&apos;;
+   if(sforce.console.isInConsole()) {
+      if(status === &apos;Active&apos; &amp;&amp; userId === &apos;{!User.Name}&apos;){
+         sforce.console.openPrimaryTab(null, conversationSessionPrefix, true, &apos;{!HTMLENCODE($Label.livetext__txt_conversation)}&apos;, null);
+      }else{
+         alert(&apos;This Text Session cannot be resumed.&apos;);
+      }
+   } else {
+      var query = &quot;SELECT Id FROM AppMenuItem WHERE Name=&apos;LiveText_Console&apos;&quot;;
+      sforce.connection.sessionId = &apos;{!$Api.Session_ID}&apos;;
+      var queryResult = sforce.connection.query(query);
+      var records = queryResult.getArray(&apos;records&apos;);
+      var ltId = records[0].Id;
+      if(status === &apos;Active&apos; &amp;&amp; userId === &apos;{!User.Name}&apos;){
+         window.top.location.href = &apos;https://&apos;+window.location.hostname+&apos;/console?tsid=&apos;+ltId +&apos;#&apos;+conversationSessionPrefix;
+      }else{
+         alert(&apos;This Text Session cannot be resumed.&apos;);
+      }
+   }
+}catch(e){
+   alert (e.toString());
+}</url>
+    </webLinks>
+</CustomObject>

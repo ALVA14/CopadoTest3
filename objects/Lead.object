@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AddToCampaign</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CallHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChangeStatus</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Convert</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EmailHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>FindDup</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ListClean</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SmsHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>Leads_Custom_Compact_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Leads_Custom_Compact_Layout</fullName>
+        <fields>Name</fields>
+        <fields>Company</fields>
+        <fields>Title</fields>
+        <fields>Phone</fields>
+        <fields>MobilePhone</fields>
+        <fields>Email</fields>
+        <label>Leads Custom Compact Layout</label>
+    </compactLayouts>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <fieldSets>
+        <fullName>vlocity_cmt__ListMember</fullName>
+        <availableFields>
+            <field>Description</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>DoNotCall</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>Fax</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>HasOptedOutOfEmail</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>HasOptedOutOfFax</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <availableFields>
+            <field>LeadSource</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </availableFields>
+        <description>Lead fields displayed in campaign member list.</description>
+        <displayedFields>
+            <field>Company</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>LastName</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>FirstName</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Salutation</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Name</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Phone</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Email</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Title</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>OwnerId</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>ListMember</label>
+    </fieldSets>
+    <fields>
+        <fullName>Address</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>AnnualRevenue</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>CampaignId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Company</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>DB_Created_Date_without_Time__c</fullName>
+        <description>This is a field that is installed by and used with the Adoption Dashboard AppExchange package. If your org already has a similar field, you can change the reports that are part of the Adoption Dashboard package to use your custom field and then delete this field.</description>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DB Created Date without Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DB_Lead_Age__c</fullName>
+        <description>This is a field that is installed by and used with the Adoption Dashboard AppExchange package. If your org already has a similar field, you can change the reports that are part of the Adoption Dashboard package to use your custom field and then delete this field.</description>
+        <externalId>false</externalId>
+        <formula>NOW() - LastModifiedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DB Lead Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>DoNotCall</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Email</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Fax</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>HasOptedOutOfEmail</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>HasOptedOutOfFax</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>IndividualId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Industry</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Jigsaw</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>LastTransferDate</fullName>
+    </fields>
+    <fields>
+        <fullName>LeadSource</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>MobilePhone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>NumberOfEmployees</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Phone</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Rating</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Title</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Website</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>vlocity_cmt__NumberofLocations__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Number of Locations</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>vlocity_cmt__PremisesId__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Premises</label>
+        <referenceTo>vlocity_cmt__Premises__c</referenceTo>
+        <relationshipLabel>Leads</relationshipLabel>
+        <relationshipName>Leads</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>vlocity_cmt__ProductInterest__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product Interest</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>GC1000 series</fullName>
+                    <default>false</default>
+                    <label>GC1000 series</label>
+                </value>
+                <value>
+                    <fullName>GC5000 series</fullName>
+                    <default>false</default>
+                    <label>GC5000 series</label>
+                </value>
+                <value>
+                    <fullName>GC3000 series</fullName>
+                    <default>false</default>
+                    <label>GC3000 series</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <listViews>
+        <fullName>AllOpenLeads</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>LEAD.COMPANY</columns>
+        <columns>LEAD.TITLE</columns>
+        <columns>LEAD.STATE</columns>
+        <columns>LEAD.PHONE</columns>
+        <columns>LEAD.EMAIL</columns>
+        <columns>LEAD.STATUS</columns>
+        <columns>CORE.USERS.FIRST_NAME</columns>
+        <columns>CORE.USERS.LAST_NAME</columns>
+        <columns>LEAD.CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>LEAD.STATUS</field>
+            <operation>notEqual</operation>
+            <value>Qualified</value>
+        </filters>
+        <label>All Open Leads</label>
+    </listViews>
+    <listViews>
+        <fullName>MyUnreadLeads</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>LEAD.COMPANY</columns>
+        <columns>LEAD.STATE</columns>
+        <columns>LEAD.PHONE</columns>
+        <columns>LEAD.EMAIL</columns>
+        <columns>LEAD.RATING</columns>
+        <columns>LEAD.UNREAD</columns>
+        <columns>LEAD.STATUS</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>LEAD.UNREAD</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>My Unread Leads</label>
+    </listViews>
+    <listViews>
+        <fullName>TodaysLeads</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>LEAD.COMPANY</columns>
+        <columns>LEAD.STATE</columns>
+        <columns>LEAD.EMAIL</columns>
+        <columns>LEAD.STATUS</columns>
+        <columns>LEAD.CREATED_DATE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>LEAD.UNREAD</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>LEAD.CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>TODAY</value>
+        </filters>
+        <label>Today&apos;s Leads</label>
+    </listViews>
+    <searchLayouts>
+        <customTabListAdditionalFields>FULL_NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LEAD.COMPANY</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LEAD.PHONE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>LEAD.COMPANY</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>FULL_NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LEAD.COMPANY</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LEAD.PHONE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LEAD.MOBILE_PHONE</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.TITLE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.COMPANY</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.PHONE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.MOBILE_PHONE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.EMAIL</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.STATUS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWriteTransfer</sharingModel>
+    <webLinks>
+        <fullName>GoogleMaps</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google Maps</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://maps.google.com/maps?f=q&amp;hl=en&amp;q={!Lead_Street}+{!Lead_City}+{!Lead_State}&amp;om=1</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleNews</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google News</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://www.google.com/news?&amp;q={!Lead_Company}&amp;btnG=Search+News</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleSearch</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google Search</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://www.google.com/search?q={!Lead_Company}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>LiveText__Opt_in_for_Text_Messages_list</fullName>
+        <availability>online</availability>
+        <description>This button is for List View</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Opt-in for Text Messages</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)} 
+			{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+			{!REQUIRESCRIPT(&apos;/support/console/31.0/integration.js&apos;)}; 
+
+			var records = {!GETRECORDIDS($ObjectType.Account)};
+            var hasShortCodeNumber = sforce.apex.execute(&quot;LiveText.RetrievePreferredPhoneNumber&quot;,&quot;agentHasShortcodeNumberAssigned&quot;,{});
+            if (records[0] == null){ 
+                alert(&quot;Please select at least one lead&quot;) 
+            }else if((records.length &gt; 25) &amp;&amp; hasShortCodeNumber==&apos;false&apos;){
+                alert(&apos;A maximum of 25 text messages may be sent at once. Please select fewer recipients and try again.&apos;);
+            }else{
+				var packagePrefix = &quot;LiveText__&quot;; 
+				var recordType = &quot;lead&quot;; 
+				var recordIds = &quot;&quot;; 
+				var optOutField = &apos;&apos;; 
+				var optOutDefaultValue = &apos;yes&apos;; 
+				var smsType = &apos;&apos;; 
+				var userId = &apos;{!$User.Id}&apos;; 
+				var elementIdVar = &apos;&apos;; 
+				var showUserDropDown = false; 
+				var dialogTitle = &apos;&apos;; 
+				var queryString = &apos;&apos;; 
+
+				for (var n in records) { 
+					if(n == &apos;remove&apos; || n == &apos;indexOf&apos;) continue; 
+					recordIds = recordIds + records[n]; 
+				
+					if (n != records.length-1) { 
+						recordIds = recordIds + &quot;,&quot;; 
+					} 
+				} 
+
+				var e = document.getElementsByName(&quot;fcf&quot;)[0]; 
+				var selectedView = e.options[e.selectedIndex].value; 
+				
+				var returnURL = &apos;/00Q?fcf=&apos;+ selectedView + &apos;&amp;rolodexIndex=-1&amp;page=1&apos;; 
+
+				var urlStart =  &apos;https://&apos;+window.location.hostname+&apos;/apex/LiveText__LiveTextOptinStatusPage?recordType=&apos;+recordType +
+								&apos;&amp;records=&apos;+recordIds+&apos;&amp;retURL=&apos;+returnURL;
+
+				if(sforce.console.isInConsole()) { 
+					sforce.console.openPrimaryTab(null, urlStart + &apos;&amp;inConsole=yes&amp;optType=1&apos;, true, &apos;Opt-in for Text Messages&apos;); 
+				}else{ 
+					window.top.location.href = urlStart + &apos;&amp;inConsole=no&amp;optType=1&apos;; 
+				} 
+			}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>LiveText__Opt_out_for_Text_Messages_list</fullName>
+        <availability>online</availability>
+        <description>This button is for List View</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Opt-out for Text Messages</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)} 
+			{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+			{!REQUIRESCRIPT(&apos;/support/console/31.0/integration.js&apos;)}; 
+
+			var records = {!GETRECORDIDS($ObjectType.Lead)}; 
+			if (records[0] == null) 
+			{ 
+				alert(&quot;Please select at least one lead&quot;) 
+			} 
+			else{ 
+				var packagePrefix = &quot;LiveText__&quot;; 
+				var recordType = &quot;lead&quot;; 
+				var recordIds = &quot;&quot;; 
+				var optOutField = &apos;&apos;; 
+				var optOutDefaultValue = &apos;yes&apos;; 
+				var smsType = &apos;&apos;; 
+				var userId = &apos;{!$User.Id}&apos;; 
+				var elementIdVar = &apos;&apos;; 
+				var showUserDropDown = false; 
+				var dialogTitle = &apos;&apos;; 
+				var queryString = &apos;&apos;; 
+
+				for (var n in records) { 
+					if(n == &apos;remove&apos; || n == &apos;indexOf&apos;) continue; 
+					recordIds = recordIds + records[n]; 
+				
+					if (n != records.length-1) { 
+						recordIds = recordIds + &quot;,&quot;; 
+					} 
+				} 
+
+				var e = document.getElementsByName(&quot;fcf&quot;)[0]; 
+				var selectedView = e.options[e.selectedIndex].value; 
+				
+				var returnURL = &apos;/00Q?fcf=&apos;+ selectedView + &apos;&amp;rolodexIndex=-1&amp;page=1&apos;; 
+
+				var urlStart =  &apos;https://&apos;+window.location.hostname+&apos;/apex/LiveText__LiveTextOptinStatusPage?recordType=&apos;+recordType + 
+&apos;&amp;records=&apos;+recordIds+&apos;&amp;retURL=&apos;+returnURL;
+
+				if(sforce.console.isInConsole()) { 
+					sforce.console.openPrimaryTab(null, urlStart + &apos;&amp;inConsole=yes&amp;optType=0&apos;, true, &apos;Opt-out for Text Messages&apos;); 
+				}else{ 
+					window.top.location.href = urlStart + &apos;&amp;inConsole=no&amp;optType=0&apos;; 
+				} 
+			}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>LiveText__Send_Bulk_SMS</fullName>
+        <availability>online</availability>
+        <description>Sends text message to selected records</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Text to List</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)} 
+            {!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+            {!REQUIRESCRIPT(&apos;/support/console/31.0/integration.js&apos;)}; 
+
+            var records = {!GETRECORDIDS($ObjectType.Lead)}; 
+            var hasShortCodeNumber = sforce.apex.execute(&quot;LiveText.RetrievePreferredPhoneNumber&quot;,&quot;agentHasShortcodeNumberAssigned&quot;,{});
+            if (records[0] == null){ 
+                alert(&quot;Please select at least one lead&quot;);
+            }else if((records.length &gt; 25) &amp;&amp; hasShortCodeNumber==&quot;false&quot;){ 
+                alert(&quot;A maximum of 25 text messages may be sent at once. Please select fewer recipients and try again.&quot;); 
+            } 
+            else{ 
+                var packagePrefix = &quot;LiveText__&quot;; 
+                var recordType = &quot;lead&quot;; 
+                var recordIds = &quot;&quot;;
+
+                for (var n in records) { 
+                    if(n == &apos;remove&apos; || n == &apos;indexOf&apos;) continue; 
+                    recordIds = recordIds + records[n]; 
+                    
+                    if (n != records.length-1) { 
+                        recordIds = recordIds + &quot;,&quot;; 
+                    } 
+                }
+
+                var storageId = sforce.apex.execute(&quot;LiveText.RetrievePreferredPhoneNumber&quot;,&quot;saveToStorage&quot;,{stringToSave:recordIds});
+                var urlStart = &apos;https://&apos;+window.location.hostname+&apos;/apex/LiveText__LiveTextBulkSms?recordType=&apos;+recordType+&apos;&amp;storageId=&apos;+storageId; 
+                
+                if(sforce.console.isInConsole()) { 
+                    sforce.console.openPrimaryTab(null, urlStart, true);
+                } else { 
+                    window.top.location.href = urlStart; 
+                } 
+            }</url>
+    </webLinks>
+</CustomObject>

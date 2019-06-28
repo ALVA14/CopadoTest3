@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- This form is sent automatically when a LiveMessage session is received during business hours. --></help>
+        <label><!-- Auto-Response Form --></label>
+        <name>LiveText__Auto_Response_Form__c</name>
+        <relationshipLabel><!-- LiveText Numbers --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- This message is sent automatically when a LiveMessage session is received during business hours. --></help>
+        <label><!-- Auto-Response Message --></label>
+        <name>LiveText__Auto_Response_Message__c</name>
+    </fields>
+    <fields>
+        <help><!-- Business support hours for this phone number. Business Hours can be managed via Setup. --></help>
+        <label><!-- Business Hours --></label>
+        <name>LiveText__Business_Hours__c</name>
+        <relationshipLabel><!-- LiveMessage Numbers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Channel Type --></label>
+        <name>LiveText__Channel_Type__c</name>
+    </fields>
+    <fields>
+        <help><!-- This message is sent automatically when a LiveMessage session is ended by an agent. --></help>
+        <label><!-- Chat End Message --></label>
+        <name>LiveText__Chat_End_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreateEvent --></label>
+        <name>LiveText__CreateEvent__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreateTask --></label>
+        <name>LiveText__CreateTask__c</name>
+    </fields>
+    <fields>
+        <help><!-- The number of seconds before the LiveMessage session tab alerts the agent to respond. --></help>
+        <label><!-- Critical Alert Time (seconds) --></label>
+        <name>LiveText__Critical_Alert_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- This form is sent automatically when a LiveMessage session is ended by an agent. --></help>
+        <label><!-- End Message Form --></label>
+        <name>LiveText__End_Message_Form__c</name>
+        <relationshipLabel><!-- LiveText Numbers (End Message Form) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Formatted Support Number --></label>
+        <name>LiveText__Formatted_Support_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISO Country Code --></label>
+        <name>LiveText__ISOCountryCode__c</name>
+    </fields>
+    <fields>
+        <help><!-- ITR automates opt-out tracking, routing to agent queues(via Omni-Channel),case creation,off-hour handling and other interactions.Please review the Admin Guide for more information: https://sfdc.co/bw5vlo --></help>
+        <label><!-- ITR Enabled --></label>
+        <name>LiveText__ITR_Enabled__c</name>
+    </fields>
+    <fields>
+        <help><!-- This message is sent automatically when a LiveMessage session is accepted by an agent. --></help>
+        <label><!-- Initial Message --></label>
+        <name>LiveText__Initial_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- International LiveMessage Number --></label>
+        <name>LiveText__International_Live_Text_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- New_Custom_Objects_Tabs --></label>
+        <name>LiveText__New_Custom_Objects_Tabs__c</name>
+    </fields>
+    <fields>
+        <label><!-- New_Objects_Tabs --></label>
+        <name>LiveText__New_Objects_Tabs__c</name>
+    </fields>
+    <fields>
+        <help><!-- This message is sent automatically when a LiveMessage session is received while no agents are available. (Not for use with Omni-Channel) --></help>
+        <label><!-- No Available Users Message --></label>
+        <name>LiveText__No_Available_Users_Message__c</name>
+    </fields>
+    <fields>
+        <help><!-- When checked, new LiveMessage sessions received during off hours will populate the LiveMessage or Omni-Channel notification widget. --></help>
+        <label><!-- Notify Users during off hours? --></label>
+        <name>LiveText__Notify_Users_During_Off_Hours__c</name>
+    </fields>
+    <fields>
+        <help><!-- The phone number, Facebook page or shortcode that has been verified and enabled for LiveMessage. To register additional numbers or pages please contact LiveMessage support at http://support.hwlivetext.com --></help>
+        <label><!-- Support Number --></label>
+        <name>LiveText__Number__c</name>
+    </fields>
+    <fields>
+        <help><!-- This message is sent automatically when a LiveMessage session is received during offline hours. --></help>
+        <label><!-- Offline Hours Message --></label>
+        <name>LiveText__Offline_Hours_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Omni-channel Queue --></label>
+        <name>LiveText__Omni_channel_Queue__c</name>
+    </fields>
+    <fields>
+        <help><!-- Whether or not to prepend country code for US and Canadian phone numbers that are auto-populated in new Account, Contact, and Lead records. --></help>
+        <label><!-- Prepend Country Code --></label>
+        <name>LiveText__Prepend_Country_Code__c</name>
+    </fields>
+    <fields>
+        <help><!-- Save the attachments that are sent or received during the message session to the session record. --></help>
+        <label><!-- Save Attachments --></label>
+        <name>LiveText__Save_Session_Attachments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Screen Pop Default Record Type --></label>
+        <name>LiveText__Screen_Pop_Default_Record_Type__c</name>
+    </fields>
+    <fields>
+        <help><!-- When checked, only records previously associated with a Messenger user’s unique ID will be displayed, popped and/or auto-linked. When un-checked records matching a user’s full name will be selected if no records are found using the unique ID. --></help>
+        <label><!-- Search exclusively with unique ID --></label>
+        <name>LiveText__Search_Exclusively_With_Unique_Id__c</name>
+    </fields>
+    <fields>
+        <help><!-- Whether or not to show the New Account tab when a text session is started for this phone number. --></help>
+        <label><!-- Show New Account --></label>
+        <name>LiveText__Show_New_Account_Tab__c</name>
+    </fields>
+    <fields>
+        <help><!-- Whether or not to show the New Case tab when a text session is started for this phone number. --></help>
+        <label><!-- Show New Case --></label>
+        <name>LiveText__Show_New_Case_Tab__c</name>
+    </fields>
+    <fields>
+        <help><!-- Whether or not to show the New Contact tab when a text session is started for this phone number. --></help>
+        <label><!-- Show New Contact --></label>
+        <name>LiveText__Show_New_Contact_Tab__c</name>
+    </fields>
+    <fields>
+        <help><!-- Whether or not to show the New Lead tab when a text session is started for this phone number. --></help>
+        <label><!-- Show New Lead --></label>
+        <name>LiveText__Show_New_Lead_Tab__c</name>
+    </fields>
+    <fields>
+        <help><!-- Whether or not to show the New Opportunity tab when a text session is started for this phone number. --></help>
+        <label><!-- Show New Opportunity --></label>
+        <name>LiveText__Show_New_Opportunity_Tab__c</name>
+    </fields>
+    <fields>
+        <help><!-- This form is sent automatically when a LiveMessage session is accepted by an agent. --></help>
+        <label><!-- Start Message Form --></label>
+        <name>LiveText__Start_Message_Form__c</name>
+        <relationshipLabel><!-- LiveText Numbers (Start Message Form) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- The time between when a LiveMessage session is ended and a new message is received that an existing LiveMessage session should be reused. --></help>
+        <label><!-- LiveMessage Session Reuse Time (seconds) --></label>
+        <name>LiveText__Text_Session_Reuse_Time_seconds__c</name>
+    </fields>
+    <fields>
+        <help><!-- A number must be verified by HeyWire Business before it is enabled for LiveMessage. To register additional phone numbers please contact LiveMessage support at http://support.hwlivetext.com --></help>
+        <label><!-- Validated --></label>
+        <name>LiveText__Validated__c</name>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- Chat End Message should not have more than 160 characters. --></errorMessage>
+        <name>LiveText__Chat_End_Message_Length_Rule</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Initial Message should not have more than 160 characters. --></errorMessage>
+        <name>LiveText__Initial_Message_Length_Rule</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Offline hours message should not have more than 160 characters. --></errorMessage>
+        <name>LiveText__Offline_Hours_Message_Length_Rule</name>
+    </validationRules>
+</CustomObjectTranslation>

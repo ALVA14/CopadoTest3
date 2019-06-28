@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Application Log</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Application Logs</value>
+    </caseValues>
+    <fields>
+        <label><!-- Age --></label>
+        <name>Age__c</name>
+    </fields>
+    <fields>
+        <label><!-- Debug Level --></label>
+        <name>Debug_Level__c</name>
+        <picklistValues>
+            <masterLabel>Debug</masterLabel>
+            <translation><!-- Debug --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Error</masterLabel>
+            <translation><!-- Error --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Info</masterLabel>
+            <translation><!-- Info --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Warning</masterLabel>
+            <translation><!-- Warning --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- If log is integration related show payload --></help>
+        <label><!-- Integration Payload --></label>
+        <name>Integration_Payload__c</name>
+    </fields>
+    <fields>
+        <help><!-- Either the exception error code of custom org code for record --></help>
+        <label><!-- Log Code --></label>
+        <name>Log_Code__c</name>
+    </fields>
+    <fields>
+        <help><!-- Message to log --></help>
+        <label><!-- Message --></label>
+        <name>Message__c</name>
+    </fields>
+    <fields>
+        <help><!-- The related record id --></help>
+        <label><!-- Reference Id --></label>
+        <name>Reference_Id__c</name>
+    </fields>
+    <fields>
+        <help><!-- The related record info (e.g. Apex Batch Job Id, Contact etc) --></help>
+        <label><!-- Reference Info --></label>
+        <name>Reference_Info__c</name>
+    </fields>
+    <fields>
+        <help><!-- The originating function in the class (e.g. UpdateDivision() ) --></help>
+        <label><!-- Source Function --></label>
+        <name>Source_Function__c</name>
+    </fields>
+    <fields>
+        <help><!-- The originating class (e.g. CustomerManagement) --></help>
+        <label><!-- Source --></label>
+        <name>Source__c</name>
+    </fields>
+    <fields>
+        <help><!-- Raw exception stack trace for unhandled errors --></help>
+        <label><!-- Stack Trace --></label>
+        <name>Stack_Trace__c</name>
+    </fields>
+    <fields>
+        <help><!-- The time in milliseconds for the transaction (e.g. For integration/batch apex messages it might be the time taken to process) --></help>
+        <label><!-- Timer --></label>
+        <name>Timer__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

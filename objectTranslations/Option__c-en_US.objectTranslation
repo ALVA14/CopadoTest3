@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Option</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Options</value>
+    </caseValues>
+    <fields>
+        <label><!-- MessageLive --></label>
+        <name>MessageLive__c</name>
+        <relationshipLabel><!-- Options --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Please enter the text to display to the user in the pre-agent chat to help him / her select the right support channel. --></help>
+        <label><!-- Option Text --></label>
+        <name>OptionText__c</name>
+    </fields>
+    <fields>
+        <label><!-- Option No --></label>
+        <name>Option_No__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

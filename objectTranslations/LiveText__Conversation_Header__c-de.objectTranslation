@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <caseType>Nominative</caseType>
+        <plural>false</plural>
+        <value>LiveMessage Session</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Nominative</caseType>
+        <plural>true</plural>
+        <value>LiveMessage Sessions</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Accusative</caseType>
+        <plural>false</plural>
+        <value>LiveMessage Session</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Accusative</caseType>
+        <plural>true</plural>
+        <value>LiveMessage Sessions</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Genitive</caseType>
+        <plural>false</plural>
+        <value>LiveMessage Session</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Genitive</caseType>
+        <plural>true</plural>
+        <value>LiveMessage Sessions</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Dative</caseType>
+        <plural>false</plural>
+        <value>LiveMessage Session</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Dative</caseType>
+        <plural>true</plural>
+        <value>LiveMessage Sessions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Agent Reply Pending Since --></label>
+        <name>AgentReplyPendingSince__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseOption --></label>
+        <name>CaseOption__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastMessageReceived --></label>
+        <name>LastMessageReceived__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastMessageSent --></label>
+        <name>LastMessageSent__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastAgent --></label>
+        <name>LiveText_LastAgent__c</name>
+        <relationshipLabel><!-- LiveMessage Sessions (LastAgent) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Accepted By --></label>
+        <name>LiveText__AcceptedBy__c</name>
+        <relationshipLabel><!-- LiveMessage Sessions (Accepted By) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Account --></label>
+        <name>LiveText__Account__c</name>
+        <relationshipLabel><!-- LiveMessage Sessions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Activated Time --></label>
+        <name>LiveText__Activated_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case --></label>
+        <name>LiveText__Case__c</name>
+        <relationshipLabel><!-- LiveMessage Sessions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Channel Type --></label>
+        <name>LiveText__Channel_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>LiveText__Contact__c</name>
+        <relationshipLabel><!-- LiveMessage Sessions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- ConversationReopened? --></label>
+        <name>LiveText__ConversationReopened__c</name>
+    </fields>
+    <fields>
+        <label><!-- ConversationType --></label>
+        <name>LiveText__ConversationType__c</name>
+    </fields>
+    <fields>
+        <label><!-- Conversation Identifier --></label>
+        <name>LiveText__Conversation_Identifier__c</name>
+    </fields>
+    <fields>
+        <label><!-- ElapsedTime --></label>
+        <name>LiveText__ElapsedTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Chat Message --></label>
+        <name>LiveText__End_Chat_Message__c</name>
+    </fields>
+    <fields>
+        <help><!-- Records the time that a text session was ended --></help>
+        <label><!-- Ended Time --></label>
+        <name>LiveText__EndedTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Label To Display --></label>
+        <name>LiveText__Formatted_Originating_Number_To_Display__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Label --></label>
+        <name>LiveText__Formatted_Originating_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Transcript 1 --></label>
+        <name>LiveText__Formatted_Transcript_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Transcript 2 --></label>
+        <name>LiveText__Formatted_Transcript_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- HandleTime --></label>
+        <name>LiveText__HandleTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- HandledBy --></label>
+        <name>LiveText__HandledBy__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Alaska Standard Time (AKST) time zone. --></help>
+        <label><!-- Hour (Alaska Standard Time) --></label>
+        <name>LiveText__Hour_Alaska_Standard_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Central Daylight Savings Time (CDT) time zone. --></help>
+        <label><!-- Hour (Central Daylight Savings Time) --></label>
+        <name>LiveText__Hour_Central_Daylight_Savings_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Central Standard Time (CST) time zone. --></help>
+        <label><!-- Hour (Central Standard Time) --></label>
+        <name>LiveText__Hour_Central_Standard_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Eastern Daylight Savings Time (EDT) time zone. --></help>
+        <label><!-- Hour (Eastern Daylight Savings Time) --></label>
+        <name>LiveText__Hour_Eastern_Daylight_Savings_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Eastern Standard Time (EST) time zone. --></help>
+        <label><!-- Hour (Eastern Standard Time) --></label>
+        <name>LiveText__Hour_Eastern_Standard_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Hawaii Standard Time (HST) time zone. --></help>
+        <label><!-- Hour (Hawaii Standard Time) --></label>
+        <name>LiveText__Hour_Hawaii_Standard_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Mountain Daylight Savings Time (MDT) time zone. --></help>
+        <label><!-- Hour (Mountain Daylight Savings Time) --></label>
+        <name>LiveText__Hour_Mountain_Daylight_Savings_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Mountain Standard Time (MST) time zone. --></help>
+        <label><!-- Hour (Mountain Standard Time) --></label>
+        <name>LiveText__Hour_Mountain_Standard_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Pacific Daylight Savings Time (PDT) time zone. --></help>
+        <label><!-- Hour (Pacific Daylight Savings Time) --></label>
+        <name>LiveText__Hour_Pacific_Daylight_Savings_Time__c</name>
+    </fields>
+    <fields>
+        <help><!-- Displays the hour a LiveMessage session was created for the Pacific Standard Time (PST) time zone. --></help>
+        <label><!-- Hour (Pacific Standard Time) --></label>
+        <name>LiveText__Hour_Pacific_Standard_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lead --></label>
+        <name>LiveText__Lead__c</name>
+        <relationshipLabel><!-- LiveMessage Sessions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Channel Label --></label>
+        <name>LiveText__LiveTextPhoneNumberLabel__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phone Number / Channel ID --></label>
+        <name>LiveText__LiveText_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile Originate (MO) Message Count --></label>
+        <name>LiveText__MO_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile Terminate (MT) Automated Count --></label>
+        <name>LiveText__MT_Automated_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile Terminate (MT) Message Count --></label>
+        <name>LiveText__MT_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- MessagePreview --></label>
+        <name>LiveText__MessagePreview__c</name>
+    </fields>
+    <fields>
+        <label><!-- Offline Hours Message --></label>
+        <name>LiveText__Offline_Hours_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>LiveText__Opportunity__c</name>
+        <relationshipLabel><!-- LiveMessage Sessions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Recipient --></label>
+        <name>LiveText__Originating_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Server Instance --></label>
+        <name>LiveText__Server_Instance__c</name>
+    </fields>
+    <fields>
+        <help><!-- Records the time that a text session is re-opened --></help>
+        <label><!-- SessionReopenedTime --></label>
+        <name>LiveText__SessionReopenedTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>LiveText__Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ended</masterLabel>
+            <translation><!-- Ended --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New</masterLabel>
+            <translation><!-- New --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Offline</masterLabel>
+            <translation><!-- Offline --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Channel --></label>
+        <name>LiveText__Support_Number__c</name>
+        <relationshipLabel><!-- LiveMessage Sessions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Thumbnail Photo Url --></label>
+        <name>LiveText__Thumbnail_Photo_Url__c</name>
+    </fields>
+    <fields>
+        <label><!-- TimeDifference --></label>
+        <name>LiveText__TimeDifference__c</name>
+    </fields>
+    <fields>
+        <label><!-- TimeDiffrence --></label>
+        <name>LiveText__TimeDiffrence__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Message Count --></label>
+        <name>LiveText__Total_Message_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Transcript Summary1 --></label>
+        <name>LiveText__Transcript_Summary_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Transcript Summary2 --></label>
+        <name>LiveText__Transcript_Summary_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Un-normalized Phone Number / Channel ID --></label>
+        <name>LiveText__UnNormalized_LiveText_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Un-normalized Recipient --></label>
+        <name>LiveText__UnNormalized_Orginating_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- isAccepted --></label>
+        <name>LiveText__isAccepted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Logout Agent Id --></label>
+        <name>LogoutAgentId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Logout --></label>
+        <name>Logout__c</name>
+    </fields>
+    <fields>
+        <label><!-- ResponsibleAgencyId --></label>
+        <name>ResponsibleAgencyId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ResponsibleAgency --></label>
+        <name>ResponsibleAgency__c</name>
+    </fields>
+    <fields>
+        <label><!-- Transfer To Queue --></label>
+        <name>Transfer_To_Queue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Transferred --></label>
+        <name>Transferred__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel><!-- LiveMessage Session Name --></nameFieldLabel>
+    <recordTypes>
+        <description><!-- Record to be displayed for ended chats. --></description>
+        <label><!-- Ended Text Sessions --></label>
+        <name>LiveText__Ended_Text_Sessions</name>
+    </recordTypes>
+    <webLinks>
+        <label><!-- Resume_Text_Session --></label>
+        <name>LiveText__Resume_Text_Session</name>
+    </webLinks>
+</CustomObjectTranslation>

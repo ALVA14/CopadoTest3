@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>LiveText__Conversation_Header__c.LiveText__HandleTime__c:SUM / 60</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Handle Time sec -&gt; min</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>LiveText__Conversation_Header__c.LiveText__ElapsedTime__c:AVG / 60</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Elapsed Time sec -&gt; min</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Average</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>LiveText__Conversation_Header__c.LiveText__ElapsedTime__c</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>CUST_CREATED_DATE</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <title>Average Handle Time / Date by Agent</title>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>LiveText__Conversation_Header__c.LiveText__ElapsedTime__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>LiveText__Conversation_Header__c.LiveText__Hour_Eastern_Standard_Time__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__Conversation_Header__c.LiveText__Channel_Type__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__Conversation_Header__c.LiveText__LiveTextPhoneNumberLabel__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__Conversation_Header__c.LiveText__SessionReopenedTime__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__Conversation_Header__c.AgentReplyPendingSince__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>LiveText__Conversation_Header__c.LiveText__HandleTime__c</field>
+    </columns>
+    <description>Displays the average handle time current day</description>
+    <filter>
+        <criteriaItems>
+            <column>LiveText__Conversation_Header__c.LiveText__AcceptedBy__c</column>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <language>de</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CUST_CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Average Handle Time / current week</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$LiveText__Conversation_Header__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>LiveText__Conversation_Header__c.LiveText__LiveTextPhoneNumberLabel__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_THISWEEK</interval>
+    </timeFrameFilter>
+</Report>

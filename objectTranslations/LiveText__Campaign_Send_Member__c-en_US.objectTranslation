@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- Id of the Campaign Member. --></help>
+        <label><!-- CampaignMemberId --></label>
+        <name>LiveText__CampaignMemberId__c</name>
+    </fields>
+    <fields>
+        <help><!-- Lookup to the CampaignSend. --></help>
+        <label><!-- CampaignSend --></label>
+        <name>LiveText__CampaignSend__c</name>
+        <relationshipLabel><!-- CampaignSendMembers --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Formula to CampaignSend Support Number. --></help>
+        <label><!-- FromNumber --></label>
+        <name>LiveText__FromNumber__c</name>
+    </fields>
+    <fields>
+        <help><!-- Preferred phone number from Campaign Member. --></help>
+        <label><!-- Phone --></label>
+        <name>LiveText__Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Whether or not this member has been processed. --></help>
+        <label><!-- isProcessed --></label>
+        <name>LiveText__isProcessed__c</name>
+    </fields>
+</CustomObjectTranslation>

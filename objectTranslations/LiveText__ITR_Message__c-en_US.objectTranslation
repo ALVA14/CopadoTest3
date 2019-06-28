@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Account --></label>
+        <name>LiveText__Account__c</name>
+        <relationshipLabel><!-- ITR Messages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Available Agents --></label>
+        <name>LiveText__Available_Agents__c</name>
+    </fields>
+    <fields>
+        <help><!-- Lookup to the Campaign Send Member. --></help>
+        <label><!-- Campaign Send Member --></label>
+        <name>LiveText__Campaign_Send_Member__c</name>
+        <relationshipLabel><!-- ITR Messages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Case --></label>
+        <name>LiveText__Case__c</name>
+        <relationshipLabel><!-- ITR Messages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>LiveText__Contact__c</name>
+        <relationshipLabel><!-- ITR Messages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Formatted Originating Number --></label>
+        <name>LiveText__Formatted_Originating_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Group --></label>
+        <name>LiveText__Group_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- HTML Transcript --></label>
+        <name>LiveText__HTML_Transcript__c</name>
+    </fields>
+    <fields>
+        <label><!-- ITR Context --></label>
+        <name>LiveText__ITR_Context__c</name>
+    </fields>
+    <fields>
+        <label><!-- Intent --></label>
+        <name>LiveText__Intent_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Form Response? --></label>
+        <name>LiveText__Is_Form_Response__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Within Business Hours --></label>
+        <name>LiveText__Is_Within_Business_Hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Modified Text Session Header --></label>
+        <name>LiveText__Last_Modified_Text_Session_Header__c</name>
+        <relationshipLabel><!-- ITR Messages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Lead --></label>
+        <name>LiveText__Lead__c</name>
+        <relationshipLabel><!-- ITR Messages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- LiveMessage Number --></label>
+        <name>LiveText__LiveText_Number__c</name>
+        <relationshipLabel><!-- ITR Messages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Message --></label>
+        <name>LiveText__Message__c</name>
+    </fields>
+    <fields>
+        <help><!-- MO Message Counter is incremented by 1 every time a Mobile Originated message is received by the ITR. --></help>
+        <label><!-- Mo Message Counter --></label>
+        <name>LiveText__Mo_Message_Counter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>LiveText__Opportunity__c</name>
+        <relationshipLabel><!-- ITR Messages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Opt-In Status --></label>
+        <name>LiveText__Opt_In_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Originating Number --></label>
+        <name>LiveText__Originating_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Queue Name --></label>
+        <name>LiveText__Queue_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Text Transcript --></label>
+        <name>LiveText__Text_Transcript__c</name>
+    </fields>
+</CustomObjectTranslation>

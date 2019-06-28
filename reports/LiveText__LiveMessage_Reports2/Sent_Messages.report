@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>LiveText__SMS_Message__c.LiveText__Message__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__SMS_Message__c.LiveText__LiveText_Number__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__SMS_Message__c.LiveText__Message_Status__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__SMS_Message__c.LiveText__Is_ITR__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__SMS_Message__c.LiveText__To_Phone_Number__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Sent Messages</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$LiveText__SMS_Message__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>LiveText__SMS_Message__c.LiveText__Message_Status__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

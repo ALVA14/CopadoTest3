@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- InteractionFieldList --></label>
+        <name>vlocity_cmt__InteractionFieldList</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Segment List Export --></label>
+        <name>vlocity_cmt__SegmentListExport</name>
+    </fieldSets>
+    <fields>
+        <label><!-- FAA Failed --></label>
+        <name>FAA_Failed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Active --></label>
+        <name>LiveText__Active__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- mylabel --></label>
+        <name>mylabel__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Payment Type --></label>
+        <name>vlocity_cmt__AccountPaymentType__c</name>
+        <picklistValues>
+            <masterLabel>Postpaid</masterLabel>
+            <translation><!-- Postpaid --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prepaid</masterLabel>
+            <translation><!-- Prepaid --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Active --></label>
+        <name>vlocity_cmt__Active__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Auto Payment Amount --></label>
+        <name>vlocity_cmt__AutoPaymentAmount__c</name>
+        <picklistValues>
+            <masterLabel>Full Balance</masterLabel>
+            <translation><!-- Full Balance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Minimum Due</masterLabel>
+            <translation><!-- Minimum Due --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Auto Payment Card Type --></label>
+        <name>vlocity_cmt__AutoPaymentCardType__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auto Payment Method --></label>
+        <name>vlocity_cmt__AutoPaymentMethodId__c</name>
+        <relationshipLabel><!-- Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Bill Delivery Method --></label>
+        <name>vlocity_cmt__BillDeliveryMethod__c</name>
+        <picklistValues>
+            <masterLabel>Electronic Statements Online</masterLabel>
+            <translation><!-- Electronic Statements Online --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Paper Billing</masterLabel>
+            <translation><!-- Paper Billing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>eMail</masterLabel>
+            <translation><!-- eMail --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Bill Frequency --></label>
+        <name>vlocity_cmt__BillFrequency__c</name>
+        <picklistValues>
+            <masterLabel>Monthly</masterLabel>
+            <translation><!-- Monthly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quarterly</masterLabel>
+            <translation><!-- Quarterly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Weekly</masterLabel>
+            <translation><!-- Weekly --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Billing eMail Address --></label>
+        <name>vlocity_cmt__BillingEmailAddress__c</name>
+    </fields>
+    <fields>
+        <help><!-- Customer Lifetime Value --></help>
+        <label><!-- CLTV --></label>
+        <name>vlocity_cmt__CLTV__c</name>
+    </fields>
+    <fields>
+        <label><!-- Calculated Address --></label>
+        <name>vlocity_cmt__CalculatedAddress__c</name>
+    </fields>
+    <fields>
+        <label><!-- Churn --></label>
+        <name>vlocity_cmt__Churn__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Preferences --></label>
+        <name>vlocity_cmt__ContactPreferences__c</name>
+        <picklistValues>
+            <masterLabel>Mail</masterLabel>
+            <translation><!-- Mail --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Phone</masterLabel>
+            <translation><!-- Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>eMail</masterLabel>
+            <translation><!-- eMail --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Customer Value --></label>
+        <name>vlocity_cmt__CustomerValue__c</name>
+        <picklistValues>
+            <masterLabel>Bronze</masterLabel>
+            <translation><!-- Bronze --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Diamond</masterLabel>
+            <translation><!-- Diamond --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gold</masterLabel>
+            <translation><!-- Gold --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platinum</masterLabel>
+            <translation><!-- Platinum --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Silver</masterLabel>
+            <translation><!-- Silver --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Date Founded --></label>
+        <name>vlocity_cmt__DateFounded__c</name>
+    </fields>
+    <fields>
+        <label><!-- Directory Listed --></label>
+        <name>vlocity_cmt__DirectoryListed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Foreign Exchange --></label>
+        <name>vlocity_cmt__Disclosure1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gaming or Gambling --></label>
+        <name>vlocity_cmt__Disclosure2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Money Lending/Pawning --></label>
+        <name>vlocity_cmt__Disclosure3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enable Autopay --></label>
+        <name>vlocity_cmt__EnableAutopay__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Person Account --></label>
+        <name>vlocity_cmt__IsPersonAccount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Root Resolved --></label>
+        <name>vlocity_cmt__IsRootResolved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legal Form --></label>
+        <name>vlocity_cmt__LegalForm__c</name>
+        <picklistValues>
+            <masterLabel>Corporation</masterLabel>
+            <translation><!-- Corporation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LLC</masterLabel>
+            <translation><!-- LLC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LLP</masterLabel>
+            <translation><!-- LLP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not for Profit</masterLabel>
+            <translation><!-- Not for Profit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partnership</masterLabel>
+            <translation><!-- Partnership --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sole Proprietorship</masterLabel>
+            <translation><!-- Sole Proprietorship --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Net Worth --></label>
+        <name>vlocity_cmt__NetWorth__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Locations --></label>
+        <name>vlocity_cmt__NumberofLocations__c</name>
+    </fields>
+    <fields>
+        <label><!-- Party --></label>
+        <name>vlocity_cmt__PartyId__c</name>
+        <relationshipLabel><!-- Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Person Contact Id --></label>
+        <name>vlocity_cmt__PersonContactId__c</name>
+        <relationshipLabel><!-- Person Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Premises --></label>
+        <name>vlocity_cmt__PremisesId__c</name>
+        <relationshipLabel><!-- Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>vlocity_cmt__PrimaryContactId__c</name>
+        <relationshipLabel><!-- Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Root Account --></label>
+        <name>vlocity_cmt__RootAccountId__c</name>
+        <relationshipLabel><!-- Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SLA --></label>
+        <name>vlocity_cmt__SLA__c</name>
+        <picklistValues>
+            <masterLabel>Bronze</masterLabel>
+            <translation><!-- Bronze --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gold</masterLabel>
+            <translation><!-- Gold --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platinum</masterLabel>
+            <translation><!-- Platinum --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Silver</masterLabel>
+            <translation><!-- Silver --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>vlocity_cmt__Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Expired</masterLabel>
+            <translation><!-- Expired --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactive</masterLabel>
+            <translation><!-- Inactive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation><!-- Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suspended</masterLabel>
+            <translation><!-- Suspended --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tax ID --></label>
+        <name>vlocity_cmt__TaxID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Priority --></label>
+        <name>vlocity_cmt__vCustomerPriority__c</name>
+        <picklistValues>
+            <masterLabel>High</masterLabel>
+            <translation><!-- High --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Low</masterLabel>
+            <translation><!-- Low --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medium</masterLabel>
+            <translation><!-- Medium --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- SLA Expiration Date --></label>
+        <name>vlocity_cmt__vSLAExpirationDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- SLA Serial Number --></label>
+        <name>vlocity_cmt__vSLASerialNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- SLA --></label>
+        <name>vlocity_cmt__vSLA__c</name>
+        <picklistValues>
+            <masterLabel>Bronze</masterLabel>
+            <translation><!-- Bronze --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gold</masterLabel>
+            <translation><!-- Gold --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platinum</masterLabel>
+            <translation><!-- Platinum --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Silver</masterLabel>
+            <translation><!-- Silver --></translation>
+        </picklistValues>
+    </fields>
+    <recordTypes>
+        <description><!-- Use a billing account to add an alternate billing profile to a business account, consumer account or billing aggregator account. --></description>
+        <label><!-- Billing --></label>
+        <name>vlocity_cmt__Billing</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Use a billing aggregator account for large business customers to organize multiple sets of billing accounts in a billing account hierarchy. --></description>
+        <label><!-- Billing Aggregator --></label>
+        <name>vlocity_cmt__BillingAggregator</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Use business accounts for customers that are businesses, organizations or other public or private agencies. --></description>
+        <label><!-- Business --></label>
+        <name>vlocity_cmt__Business</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Use consumer accounts for customers who are individual consumers, families or small office/home offices. --></description>
+        <label><!-- Consumer --></label>
+        <name>vlocity_cmt__Consumer</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- MobilePhoneAccount --></label>
+        <name>vlocity_cmt__MobilePhoneAccount</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Use other accounts for organizations that are not a customer. --></description>
+        <label><!-- Other --></label>
+        <name>vlocity_cmt__Other</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Use service accounts to add an additional service location to a business account, consumer account or service aggregator account. --></description>
+        <label><!-- Service --></label>
+        <name>vlocity_cmt__Service</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Use a service aggregator account for large business customers to organize multiple sets of service locations in a service account hierarchy. --></description>
+        <label><!-- Service Aggregator --></label>
+        <name>vlocity_cmt__ServiceAggregator</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage>Bitte geben Sie eine gültige Kundennummer ein. Es muss eine zehnstellige Zahl sein.</errorMessage>
+        <name>PersonAccountCustomerIdSyntax</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please choose the auto payment method and payment amount to enable the auto payment. --></errorMessage>
+        <name>vlocity_cmt__EnforceAutoPaymentMethodPicked</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please fill in your billing email address. --></errorMessage>
+        <name>vlocity_cmt__EnforceBillingEmailAdressFilled</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- GoogleMaps --></label>
+        <name>GoogleMaps</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleNews --></label>
+        <name>GoogleNews</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleSearch --></label>
+        <name>GoogleSearch</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Opt_in_for_Text_Messages_list --></label>
+        <name>LiveText__Opt_in_for_Text_Messages_list</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Opt_out_for_Text_Messages_list --></label>
+        <name>LiveText__Opt_out_for_Text_Messages_list</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Bulk_SMS --></label>
+        <name>LiveText__Send_Bulk_SMS</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Billing --></label>
+        <name>vlocity_cmt__Billing</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CalculateAttributes --></label>
+        <name>vlocity_cmt__CalculateAttributes</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CreateGroup --></label>
+        <name>vlocity_cmt__CreateGroup</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CreateHousehold --></label>
+        <name>vlocity_cmt__CreateHousehold</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Move --></label>
+        <name>vlocity_cmt__Move</name>
+    </webLinks>
+</CustomObjectTranslation>

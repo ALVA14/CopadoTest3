@@ -1,0 +1,42 @@
+<aura:documentation>
+    <aura:description>
+        Usage description of the DataListItem component.
+
+        This component will take two attributes:
+        1. A label (via the label attribute)
+        2. A text (via the value attribute or as component body)
+
+        Both will be output as data definition list items (using dt and dd, respectively) with applied
+        truncation. The label will provide itself as tooltip on mouse over, while the text will use the
+        additional tooltip attribute, if provided, or the value attribute as fallback.
+
+        When you provide a component body instead of the value attribute for the dd element, you need to
+        provide the tooltip attribute to populate the title on the dd element.
+
+        To provide additional css classes on the dt or dd items, use these attributes:
+
+        * labelCssClass
+        * valueCssClass
+
+
+    </aura:description>
+    <aura:example name="DataListItem" ref="DataListItem" label="DataListItem">
+        <p>
+            Example 1, using the value attribute:
+        </p>
+        <![CDATA[
+        <c:DataListItem label="{!$Label.c.CustomerData_Name}" labelCssClass="slds-text-color_weak"
+                        value="{!v.CustomerData.Name}">
+        </c:DataListItem>
+        ]]>
+        <p>
+            Example 2, using the component body and tooltip attribute:
+        </p>
+        <![CDATA[
+        <c:DataListItem label="{!$Label.c.CustomerData_Name}" labelCssClass="slds-text-color_weak"
+                        tooltip="{!v.CustomerData.Name}">
+            <a onclick="{!c.openCustomerRecord}" data-id="{!v.CustomerData.Id}">{!v.CustomerData.Name}</a>
+        </c:DataListItem>
+        ]]>
+    </aura:example>
+</aura:documentation>

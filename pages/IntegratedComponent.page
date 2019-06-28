@@ -1,0 +1,686 @@
+<!-------------------------------------------------------------
+Author: Sudipta Karmakar
+Company: Salesforce
+Description: Page to keep track of the Idle time of the customer reply
+Inputs:      None
+Created: 7/12/18
+History
+12.07.2018  Sudipta Karmakar    Initial version
+08.02.2019  Sven Kretschmann    Refactored, closing tab with prior clean mark of subtabs
+13.02.2019  Sven Kretschmann    Refactored, colorizing stale conversation tabs
+-------------------------------------------------------------->
+
+<apex:page id="IntegratedComponent">
+    <apex:includeScript value="/soap/ajax/43.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/43.0/apex.js"/>
+    <apex:includeScript value="/support/console/43.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.cometd}"/>
+
+    <script>
+        /**
+         * Wrapper object to not pollute the global space
+         */
+        var IntegratedComponent = {
+            /**
+             * Provide these configuration elements when calling the initialize method
+             */
+            configuration: {
+                debug: false,
+                customerReplyTimeout: 30000,
+                checkConversationsInterval: 30000,
+                checkTabsInterval: 7500,
+                replyUrgencyThresholds: [
+                    {timeout: 0, color: '#FFFBAF'},
+                    {timeout: 45000, color: '#FFFF00'},
+                    {timeout: 90000, color: '#FF0000'}
+                ]
+            },
+            /**
+             * names of the url parametrs.
+             */
+            urlParams: {
+                sessionIdParamName: 'cvid', //name of the url parametr that store session id.
+                caseIdParamName: 'caseId', //name of the url parametr that store case id (for manually pulling).
+                caseNumberParamName: 'caseNumber', //name of the url parametr that store case number (for manually pulling).
+                accountIdParamName: 'accountId' //name of the url parametr that store account id (for manually pulling).
+            },
+            eventBus: null,
+            /**
+             * The active conversations of the current user, refresh regularly from the server
+             */
+            agentConversations: {},
+            /**
+             * The ids of the active conversations, by related record. Only one conversation id is stored per record id
+             */
+            activeConversationsByRelatedRecord: {},
+            /**
+             * The currently opened tabs of the user, refreshed regularly
+             */
+            agentTabs: {},
+            /**
+             * Lock flag to prevent multiple simultaneously executions.
+             */
+            isRunning: false,
+
+            /**
+             * Lock flag to run logout logic only once.
+             */
+            isRunLogout: true,
+
+            /**
+             * Initialize this component and the backend connection.
+             *
+             * @param configuration
+             */
+            initialize: function (configuration) {
+                if (configuration) {
+                    this.configure(configuration);
+
+                    if (configuration.sessionId) {
+                        sforce.connection.sessionId = configuration.sessionId;
+                    }
+                }
+
+                this.logMessage('initialize', this.configuration);
+
+                var boundRun = this.run.bind(this);
+
+                //Event Listener for any Tab being Opened
+                sforce.console.addEventListener(sforce.console.ConsoleEvent.OPEN_TAB, boundRun);
+
+                //Event Listner for any Tab being Closed
+                sforce.console.addEventListener(sforce.console.ConsoleEvent.CLOSE_TAB, boundRun);
+
+                window.setInterval(boundRun, this.configuration.checkTabsInterval);
+
+                window.setInterval(function () {
+                    this.updateConversations();
+                    this.run();
+                }.bind(this), this.configuration.checkConversationsInterval);
+
+                this.initializeEventBus();
+
+                this.updateConversations();
+
+                sforce.console.addEventListener(sforce.console.ConsoleEvent.PRESENCE.LOGIN_SUCCESS, function (loginSuccessRes) {
+                    this.isRunLogout = true;
+                }.bind(this));
+            },
+
+            /**
+             * Initialize cometd to receive updates on conversations
+             */
+            initializeEventBus: function () {
+                var cometdUrl = window.location.protocol + '//' + window.location.hostname + '/cometd/43.0/';
+
+                // this.logMessage('Initializing event bus listener', cometdUrl);
+
+                this.eventBus = new org.cometd.CometD();
+
+                this.eventBus.configure({
+                    url: cometdUrl,
+                    requestHeaders: {
+                        Authorization: 'OAuth ' + sforce.connection.sessionId
+                    },
+                    appendMessageTypeToURL: false
+                });
+
+                this.eventBus.websocketEnabled = false;
+
+                this.eventBus.handshake(function (handshakeReply) {
+                    if (handshakeReply.successful) {
+                        this.logMessage('connected to CometD.');
+
+                        this.eventBus.subscribe('/topic/NewConversationHeader',
+                            function (platformEvent) {
+                                // this.logMessage('received platform event for a conversation', platformEvent);
+
+                                var conversation = platformEvent.data.sobject;
+
+                                if (!this.agentConversations[conversation.Id.substr(0, 15)]) {
+                                    /* not our conversation, ignore */
+                                    return;
+                                }
+
+                                this.logMessage('Tracked conversation was updated, refresh ui');
+                                this.updateConversations();
+                                this.run();
+                            }.bind(this)
+                        );
+                    } else {
+                        this.logMessage('Failed to connected to CometD.', handshakeReply);
+                        console.error('IntegratedComponent: Failed to connected to CometD.', handshakeReply);
+                    }
+                }.bind(this));
+            },
+
+            /**
+             * Configure this component.
+             *
+             * @param configuration
+             */
+            configure: function (configuration) {
+                if (configuration.debug) {
+                    this.configuration.debug = true;
+                }
+
+                if (configuration.hasOwnProperty('customerReplyTimeout')) {
+                    this.configuration.customerReplyTimeout = configuration.customerReplyTimeout;
+                }
+
+                if (configuration.hasOwnProperty('replyUrgencyThresholds')) {
+                    this.configuration.replyUrgencyThresholds = configuration.replyUrgencyThresholds;
+                }
+
+                if (configuration.hasOwnProperty('checkConversationsInterval')) {
+                    this.configuration.checkConversationsInterval = configuration.checkConversationsInterval;
+                }
+
+                if (configuration.hasOwnProperty('checkTabsInterval')) {
+                    this.configuration.checkTabsInterval = configuration.checkTabsInterval;
+                }
+            },
+
+            /**
+             * Refresh conversations and tab, close stale conversation tabs
+             */
+            run: function () {
+                // this.logMessage('run with arguments', arguments);
+
+                if (this.isRunning) {
+                    this.logMessage('already running, ignore new invocation');
+                    return;
+                }
+
+                this.isRunning = true;
+
+                this.updateTabs();
+
+                this.isRunning = false;
+            },
+
+            /**
+             * Get the live session updates for any active session for the current User via query
+             */
+            updateConversations: function () {
+                var oldConversations = this.agentConversations;
+                this.agentConversations = {};
+
+                var fields = [
+                    'Id',
+                    'Name',
+                    'LiveText__Contact__c',
+                    'LiveText__Account__c',
+                    'LiveText__Case__c',
+                    'LastMessageReceived__c',
+                    'LastMessageSent__c',
+                    'AgentReplyPendingSince__c',
+                    'LiveText__Status__c',
+                    'OwnerId'
+                ];
+
+                var ownerFilter = '(OwnerId = \'{!$User.Id}\' OR LiveText__AcceptedBy__c = \'{!$User.Id}\')';
+                var activeFilter = 'LiveText__Status__c = \'Active\'';
+
+                var recentModificationThreshold = new Date();
+                recentModificationThreshold.setMinutes(recentModificationThreshold.getMinutes() - 3);
+
+                var recentlyModifiedFilter = 'SystemModstamp > ' + recentModificationThreshold.toISOString();
+
+                //this.logMessage('Querying conversations', 'SELECT ' + fields.join(',') + ' '
+                //    + 'FROM LiveText__Conversation_Header__c '
+                //    + 'WHERE ' + ownerFilter + ' AND (' + activeFilter + ' OR ' + recentlyModifiedFilter + ')');
+
+                var results = sforce.connection.query(
+                    'SELECT ' + fields.join(',') + ' '
+                    + 'FROM LiveText__Conversation_Header__c '
+                    + 'WHERE ' + ownerFilter + ' AND (' + activeFilter + ' OR ' + recentlyModifiedFilter + ')'
+                );
+
+                // this.logMessage('Found conversations for agent: ', results);
+
+                var sessions = (results.size + '') === '1' ? [results.records] : results.records;
+                var relatedRecordFields = ['accountId', 'contactId', 'caseId'];
+
+                this.activeConversationsByRelatedRecord = {};
+
+                if (sessions && sessions.length) {
+                    for (var i = 0; i < sessions.length; i++) {
+                        var receivedDate = sessions[i].LastMessageReceived__c ? new Date(sessions[i].LastMessageReceived__c) : null;
+                        var replyPendingSince = sessions[i].AgentReplyPendingSince__c ? new Date(sessions[i].AgentReplyPendingSince__c) : null;
+                        var sentDate = sessions[i].LastMessageSent__c ? new Date(sessions[i].LastMessageSent__c) : null;
+
+                        var sessionId = sessions[i].Id.substr(0, 15);
+
+                        this.agentConversations[sessionId] = {
+                            sessionId: sessionId,
+                            accountId: sessions[i].LiveText__Account__c ? sessions[i].LiveText__Account__c.substr(0, 15) : null,
+                            contactId: sessions[i].LiveText__Contact__c ? sessions[i].LiveText__Contact__c.substr(0, 15) : null,
+                            caseId: sessions[i].LiveText__Case__c ? sessions[i].LiveText__Case__c.substr(0, 15) : null,
+                            lastReceivedMessage: receivedDate,
+                            lastSentMessage: sentDate,
+                            replyPendingSince: replyPendingSince,
+                            status: sessions[i].LiveText__Status__c
+                        };
+
+                        if (this.agentConversations[sessionId].status === 'Active') {
+                            relatedRecordFields.forEach(function (field) {
+                                var recordId = this.agentConversations[sessionId][field];
+
+                                if (recordId) {
+                                    this.activeConversationsByRelatedRecord[recordId] = sessionId;
+                                }
+                            }, this);
+                        }
+
+                        if (oldConversations[sessionId]) {
+                            this.logMessage('Updated conversation', this.agentConversations[sessionId]);
+                        } else {
+                            this.logMessage('Tracking conversation', this.agentConversations[sessionId]);
+                        }
+                    }
+                } else {
+                    this.logMessage('No conversations for user found', sessions);
+                }
+
+                for (sessionId in oldConversations) {
+                    if (!oldConversations.hasOwnProperty(sessionId) || this.agentConversations.hasOwnProperty(sessionId)) {
+                        continue;
+                    }
+
+                    this.logMessage(
+                        'Closing tabs for old conversation and related records that don\'t reference an active conversation',
+                        oldConversations[sessionId],
+                        this.activeConversationsByRelatedRecord
+                    );
+
+                    // the agent no longer owns this conversation, close the tabs
+                    this.findTabIdsForConversation(oldConversations[sessionId], true).forEach(this.closeTab, this);
+                }
+            },
+
+            /**
+             * Get all tab ids the user has open.
+             */
+            updateTabs: function () {
+                //get all Primary Tabs that are opened
+                sforce.console.getPrimaryTabIds(function (tabIds) {
+                    var currentTabIds = [];
+                    var remainingTabCounter = tabIds.ids.length;
+
+                    for (var i = 0; i < tabIds.ids.length; i++) {
+                        const tabId = tabIds.ids[i];
+
+                        currentTabIds.push(tabId);
+
+                        sforce.console.getPageInfo(tabId, function (details) {
+                            var pageInfo = JSON.parse(details.pageInfo);
+                            // this.logMessage('Received page info for tab id', tabId, details, pageInfo);
+
+                            if (pageInfo && pageInfo.url) {
+                                if (!this.agentTabs[tabId]) {
+                                    this.agentTabs[tabId] = {
+                                        url: pageInfo.url,
+                                        closed: false
+                                    };
+                                }
+                            }
+
+                            remainingTabCounter--;
+
+                            if (remainingTabCounter === 0) {
+                                this.handleStaleConversations();
+                            }
+                        }.bind(this));
+                    }
+
+                    Object.keys(this.agentTabs).forEach(function (tabId) {
+                        if (currentTabIds.indexOf(tabId) === -1) {
+                            /* the tab was closed, remove tracking info */
+                            this.logMessage('tab was closed, remove tracking', tabId);
+                            delete this.agentTabs[tabId];
+                        }
+                    }, this);
+                }.bind(this));
+            },
+
+            /**
+             * Identify stale conversations and mark them or close their tab, depending on the time
+             */
+            handleStaleConversations: function () {
+                this.logMessage('Searching for stale tabs', this.agentConversations, this.agentTabs);
+
+                if (this.isRunLogout === true) {
+                    this.handleConversationsAfterLogout();
+                }
+
+                var currentTime = new Date();
+                for (var sessionId in this.agentConversations) {
+                    if (!this.agentConversations.hasOwnProperty(sessionId)) {
+                        continue;
+                    }
+
+                    var conversation = this.agentConversations[sessionId];
+
+                    if (conversation.status !== 'Active') {
+                        this.logMessage('Conversation is not active, set tab color blank', conversation);
+                        this.setConversationTabColor(conversation, null, true);
+                        continue;
+                    }
+
+                    if (conversation.replyPendingSince) {
+                        /* there's a newer received message, highlight the tab regarding the age of the message */
+                        this.handlePendingConversation(conversation);
+                        continue;
+                    }
+
+                    if (conversation.lastSentMessage && (currentTime - conversation.lastSentMessage > this.configuration.customerReplyTimeout)) {
+                        /* the conversation is waiting for a customer reply for too long */
+                        this.endConversation(conversation);
+                        continue;
+                    }
+
+                    this.logMessage('Conversation is not yet stale, set tab color blank', conversation);
+                    this.setConversationTabColor(conversation, null);
+                }
+            },
+
+            /**
+             * Identify stale conversations and mark them or close their tab, depending on the time
+             */
+            handleConversationsAfterLogout: function () {
+                this.isRunLogout = false;
+
+                this.logMessage('handleConversationsAfterLogout -> agentTabs', this.agentTabs);
+                this.logMessage('handleConversationsAfterLogout -> agentConversations', this.agentConversations);
+
+                var results = sforce.connection.query(
+                    'SELECT Id, OwnerId, LiveText__Contact__c, LiveText__Account__c, LiveText__Case__c, LiveText__Status__c '
+                    + 'FROM LiveText__Conversation_Header__c '
+                    + 'WHERE LogoutAgentId__c = \'{!$User.Id}\''
+                );
+                this.logMessage('handleConversationsAfterLogout -> results', results);
+
+                var sessions = (results.size + '') === '1' ? [results.records] : results.records;
+                this.logMessage('handleConversationsAfterLogout -> sessions', sessions);
+
+                if (sessions && sessions.length) {
+
+                    for (var agentTabId in this.agentTabs) {
+                        var agentTab = this.agentTabs[agentTabId];
+                        this.logMessage('handleConversationsAfterLogout -> agentTab', agentTab);
+
+                        var sessionIdParam = this.getParamFromUrl(agentTab.url, this.urlParams.sessionIdParamName);
+                        var caseIdParam = this.getParamFromUrl(agentTab.url, this.urlParams.caseIdParamName);
+                        var idParam;
+                        if (sessionIdParam && sessionIdParam !== 'null') {
+                            idParam = sessionIdParam.substr(0, 15);
+                        } else if (caseIdParam && caseIdParam !== 'null') {
+                            idParam = caseIdParam.substr(0, 15);
+                        } else {
+                            var idInd = agentTab.url.search(/\/([a-zA-Z0-9]){15}/);
+                            if (idInd >= 0) {
+                                idParam = agentTab.url.substr(idInd + 1, 15);
+                            }
+                        }
+                        this.logMessage('handleConversationsAfterLogout -> idParam', idParam);
+
+                        if (!idParam || idParam === 'null') {
+                            continue;
+                        }
+
+                        var isTabToClose = true;
+                        for (var sessionId in this.agentConversations) {
+                            var conversation = this.agentConversations[sessionId];
+                            if (conversation && agentTab.url.indexOf(conversation.sessionId) !== -1) {
+                                isTabToClose = false;
+                            }
+                        }
+                        this.logMessage('handleConversationsAfterLogout -> isTabToClose', isTabToClose);
+
+                        if (isTabToClose) {
+                            this.logMessage('handleConversationsAfterLogout -> tab to close = ', agentTab.url);
+
+                            for (var i = 0; i < sessions.length; i++) {
+                                var sessionId = sessions[i].Id.substr(0, 15);
+                                var contactId = (sessions[i].LiveText__Contact__c) ? sessions[i].LiveText__Contact__c.substr(0, 15) : null;
+                                var accountId = (sessions[i].LiveText__Account__c) ? sessions[i].LiveText__Account__c.substr(0, 15) : null;
+                                var caseId = (sessions[i].LiveText__Case__c) ? sessions[i].LiveText__Case__c.substr(0, 15) : null;
+
+                                if (idParam === sessionId || idParam === contactId || idParam === accountId || idParam === caseId) {
+                                    var sessionObj = {
+                                        sessionId: sessionId,
+                                        contactId: contactId,
+                                        accountId: accountId,
+                                        caseId: caseId
+                                    };
+                                    this.logMessage('handleConversationsAfterLogout -> sessionObj = ', sessionObj);
+
+                                    //update session
+                                    var session = new sforce.SObject('LiveText__Conversation_Header__c');
+
+                                    session.Id = sessionId;
+                                    session.LogoutAgentId__c = null;
+
+                                    sforce.connection.update([session]);
+
+                                    this.findTabIdsForConversation(sessionObj).forEach(this.closeTab, this);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+
+            /**
+             * Parse provided url and return the specified parameter
+             */
+            getParamFromUrl: function (url, param) {
+                var regex = /[?&]([^=#]+)=([^&#]*)/g;
+                var params = {};
+                var match;
+                while (match = regex.exec(url)) {
+                    params[match[1]] = match[2];
+                }
+                return params[param];
+            },
+
+            /**
+             * Find all tab ids related to the given conversation
+             *
+             * @param conversation
+             * @param excludeRelatedTabsWithActiveConversation Whether to exclude tabs of related records when they have another active conversation
+             */
+            findTabIdsForConversation: function (conversation, excludeRelatedTabsWithActiveConversation) {
+                var ids = [];
+
+                for (var tabId in this.agentTabs) {
+                    if (!this.agentTabs.hasOwnProperty(tabId)) {
+                        continue;
+                    }
+
+                    [conversation.sessionId, conversation.accountId, conversation.contactId, conversation.caseId].forEach(function (id) {
+                        if (excludeRelatedTabsWithActiveConversation && this.activeConversationsByRelatedRecord[id]) {
+                            return;
+                        }
+
+                        if (id && this.agentTabs[tabId].url.indexOf(id) !== -1) {
+                            ids.push(tabId);
+                        }
+                    }, this);
+                }
+
+                return ids;
+            },
+
+            /**
+             * Handle a conversation where the customer is waiting for a reply
+             *
+             * @param conversation
+             */
+            handlePendingConversation: function (conversation) {
+                this.logMessage('Conversation is pending', conversation);
+
+                var age = new Date() - conversation.replyPendingSince;
+                var targetColor = null;
+
+                // this.logMessage('last message received milliseconds ago', age);
+
+                this.configuration.replyUrgencyThresholds.forEach(function (threshold) {
+                    if (age > threshold.timeout) {
+                        targetColor = threshold.color;
+                    }
+                }, this);
+
+                this.logMessage('target color', targetColor);
+
+                this.setConversationTabColor(conversation, targetColor);
+            },
+
+            /**
+             * Set the given color for all tabs of the conversation
+             */
+            setConversationTabColor: function (conversation, color, excludeRelatedTabsWithActiveConversation) {
+                this.findTabIdsForConversation(conversation, excludeRelatedTabsWithActiveConversation).forEach(function (tabId) {
+                    if (color) {
+                        sforce.console.setTabStyle('background:' + color + ';', tabId);
+                    } else {
+                        sforce.console.setTabStyle('', tabId);
+                    }
+                }, this);
+            },
+
+            /**
+             * End the stale conversation
+             *
+             * @oaram conversation
+             */
+            endConversation: function (conversation) {
+                if (conversation.status !== 'Active') {
+                    return;
+                }
+
+                this.logMessage('Ending conversation', conversation);
+
+                var liveSession = sforce.apex.execute(
+                    "LiveMessageTransciptService",
+                    "generateTranscriptForSessionId",
+                    { sessionId : conversation.sessionId }
+                );
+                console.log('>>> liveSession = ', liveSession);
+
+                var obj = new sforce.SObject("LiveText__Conversation_Header__c");
+                obj.id = conversation.sessionId;
+                obj.LiveText__Status__c = 'Ended';
+                obj.LiveText__Transcript_Summary_1__c = liveSession[0].LiveText__Transcript_Summary_1__c;
+                if (liveSession[0].hasOwnProperty('LiveText__Transcript_Summary_2__c')) {
+                    obj.LiveText__Transcript_Summary_2__c = liveSession[0].LiveText__Transcript_Summary_2__c;
+                }
+
+                sforce.connection.update([obj]);
+
+                conversation.status = 'Ended';
+
+                this.findTabIdsForConversation(conversation).forEach(this.closeTab, this);
+            },
+
+            /**
+             * Close a single tab. Will unlock the tab and mark all subtabs as clean before closing to prevent
+             * any dialogs.
+             *
+             * @param tabId
+             */
+            closeTab: function (tabId) {
+                this.logMessage('Trying to close tab', tabId, this.agentTabs[tabId]);
+
+                if (this.agentTabs[tabId] && !this.agentTabs[tabId].closed) {
+                    this.agentTabs[tabId].closed = true;
+
+                    this.logMessage('Going to close tab for session', tabId);
+
+                    sforce.console.disableTabClose(false, tabId, function (closeDisableResponse) {
+                        this.logMessage('Enabled tab closing', closeDisableResponse, closeDisableResponse.message);
+
+                        if (!closeDisableResponse.success) {
+                            /* most probably the tab no longer exists */
+                            return;
+                        }
+
+                        sforce.console.getSubtabIds(tabId, function (subTabIds) {
+                            if (!subTabIds.ids) {
+                                /* no subtabs, immediately close */
+                                this.doCloseTab(tabId);
+                                return;
+                            }
+
+                            var subTabCount = subTabIds.ids.length;
+
+                            /* mark all subtabs clean to prevent asking for confirmation */
+                            subTabIds.ids.forEach(function (subTabId) {
+                                sforce.console.setTabUnsavedChanges(false, function (markCleanResponse) {
+                                    this.logMessage('Marked tab clean', markCleanResponse, markCleanResponse.success);
+
+                                    subTabCount--;
+                                    this.logMessage('Remaining subtabs to mark clean:', subTabCount);
+                                    if (subTabCount === 0) {
+                                        this.doCloseTab(tabId);
+                                    }
+                                }.bind(this), subTabId);
+                            }, this);
+                        }.bind(this));
+                    }.bind(this));
+                }
+            },
+
+            /**
+             * Actually closes a tab.
+             *
+             * @param tabId
+             */
+            doCloseTab: function (tabId) {
+                sforce.console.closeTab(tabId, function (closeResponse) {
+                    this.logMessage('Closed tab', closeResponse);
+
+                    if (closeResponse.success) {
+                        delete this.agentTabs[tabId];
+                    }
+                }.bind(this));
+            },
+
+            /**
+             * If debugging is enabled, this will log the message and any additional argument to the console.
+             *
+             * @param message
+             */
+            logMessage: function (message) {
+                if (this.configuration.debug) {
+                    var args = new Array(arguments.length + 1);
+                    args[0] = 'IntegratedComponent:';
+
+                    for (var i = 0; i < arguments.length; i++) {
+                        args[i + 1] = arguments[i];
+                    }
+
+                    console.log.apply(console, args);
+                }
+            }
+        };
+
+        window.onload = function (event) {
+            IntegratedComponent.initialize({
+                sessionId: '{!$Api.Session_ID}',
+                customerReplyTimeout: parseInt('{!$Setup.LiveMessageSettings__c.IdleMessageTime__c}', 10),
+                replyUrgencyThresholds: [ // these times apply if the customer wrote last
+                    {timeout: 0, color: '#FFFBAF'}, // new message
+                    {timeout: parseInt('{!$Setup.LiveMessageSettings__c.TabYellowMarker__c}', 10), color: '#FFA500'},
+                    {timeout: parseInt('{!$Setup.LiveMessageSettings__c.TabOrangeMarker__c}', 10), color: '#FF0000'}
+                ]
+
+            });
+
+            IntegratedComponent.run();
+        };
+    </script>
+
+</apex:page>

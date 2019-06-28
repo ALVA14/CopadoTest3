@@ -1,0 +1,512 @@
+<!-- ------------------------------------------------------------
+Author:        Pavel Kalinin
+Company:       Salesforce
+Description:   Page to provide a custom functionality for openeing related case and account subtabs for conversation
+Created:       2/14/19
+History
+2/14/19     Pavel Kalinin    Initial version
+-------------------------------------------------------------->
+<apex:page id="ConversationSessionHiddenPage" standardController="LiveText__Conversation_Header__c">
+    <apex:includeScript value="/soap/ajax/43.0/connection.js"/>
+    <apex:includeScript value="/support/console/43.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.cometd}"/>
+
+    <script>
+        /**
+         * Wrapper object to not pollute the global space
+         */
+        var ConversationSessionHiddenPage = {
+            /**
+             * Provide these configuration elements when calling the initialize method
+             */
+            configuration: {
+                debug: false
+            },
+
+            /**
+             * names of the url parametrs.
+             */
+            urlParams: {
+                sessionIdParamName: 'cvid', //name of the url parametr that store session id.
+                caseIdParamName: 'caseId', //name of the url parametr that store case id (for manually pulling).
+                caseNumberParamName: 'caseNumber', //name of the url parametr that store case number (for manually pulling).
+                accountIdParamName: 'accountId' //name of the url parametr that store account id (for manually pulling).
+            },
+
+            /**
+             * Lock flag to prevent multiple simultaneously executions.
+             */
+            isRunning: false,
+
+            /**
+             * The id of the current tab
+             */
+            currentTabId: null,
+
+            /**
+             * Holds the data of the current conversation
+             */
+            data: {},
+
+            /**
+             * Initialize this component and the backend connection.
+             *
+             * @param configuration
+             */
+            initialize: function (configuration) {
+                this.logMessage('initialize');
+
+                if (configuration) {
+                    this.configure(configuration);
+
+                    if (configuration.sessionId) {
+                        sforce.connection.sessionId = '{!$Api.Session_ID}';
+                    }
+                }
+            },
+
+            /**
+             * Configure this component.
+             *
+             * @param configuration
+             */
+            configure: function (configuration) {
+                if (configuration.debug) {
+                    this.configuration.debug = true;
+                }
+            },
+
+            /**
+             * Run the opening account and case subtabs functions
+             */
+            run: function () {
+                if (this.isRunning) {
+                    this.logMessage('already running, ignore new invocation');
+                    return;
+                }
+
+                this.getPrimaryTab();
+            },
+
+            /**
+             * Get enclosing primary tab id
+             */
+            getPrimaryTab: function () {
+                sforce.console.getEnclosingPrimaryTabId(function (res) {
+                    if (res.success) {
+                        this.logMessage('Found enclosing tab id', res);
+                        this.currentTabId = res.id;
+
+                        this.getSubTabs();
+                    }
+                }.bind(this));
+            },
+
+            /**
+             * Get the list of subtabs ids for founded enclosing primary tab
+             */
+            getSubTabs: function () {
+                sforce.console.getSubtabIds(this.currentTabId, function (subTabsRes) {
+                    this.logMessage('Found subtabs id', subTabsRes);
+
+                    if (!subTabsRes || !subTabsRes.ids) {
+                        return;
+                    }
+
+                    subTabsRes.ids.forEach(function (subTabId, index) {
+                        if (this.isRunning) {
+                            return;
+                        }
+                        this.getPageInfo(subTabId);
+                    }.bind(this));
+
+                }.bind(this));
+            },
+
+            /**
+             * Get the page info for a subtab
+             */
+            getPageInfo: function (subTabId) {
+                sforce.console.getPageInfo(subTabId, function (pageInfoRes) {
+                    if (pageInfoRes.success) {
+                        var pageInfo = JSON.parse(pageInfoRes.pageInfo);
+
+                        this.data.caseId = this.getParamFromUrl(pageInfo.url, this.urlParams.caseIdParamName);
+                        this.data.caseNumber = this.getParamFromUrl(pageInfo.url, this.urlParams.caseNumberParamName);
+                        this.data.accountId = this.getParamFromUrl(pageInfo.url, this.urlParams.accountIdParamName);
+                        this.data.contactId = this.getParamFromUrl(pageInfo.url, this.urlParams.accountIdParamName);
+
+                        //case and account params are not empty => tab was opened through Send Message button on a Case by agent
+                        if (this.data.caseId && this.data.caseNumber && this.data.accountId) {
+                            this.openSubTab(this.data.caseId, this.data.caseNumber);
+                            this.initializeEventBus();
+                            return;
+                        }
+
+                        this.data.sessionId = this.getParamFromUrl(pageInfo.url, this.urlParams.sessionIdParamName);
+                        this.logMessage('Found LiveMessage Session id', this.data.sessionId);
+
+                        if (this.data.sessionId) { //session id is not empty => tab was opened through Omni-Channel
+                            this.openSubTabs();
+                        }
+                    }
+                }.bind(this));
+            },
+
+            /**
+             * Initialize cometd to receive updates on conversations
+             */
+            initializeEventBus: function () {
+                var cometdUrl = window.location.protocol + '//' + window.location.hostname + '/cometd/43.0/';
+
+                this.eventBus = new org.cometd.CometD();
+
+                this.eventBus.configure({
+                    url: cometdUrl,
+                    requestHeaders: {
+                        Authorization: 'OAuth ' + sforce.connection.sessionId
+                    },
+                    appendMessageTypeToURL: false
+                });
+
+                this.eventBus.websocketEnabled = false;
+
+                this.eventBus.handshake(function (handshakeReply) {
+                    if (handshakeReply.successful) {
+                        this.logMessage('connected to CometD.');
+
+                        var subscription = this.eventBus.subscribe('/topic/NewConversationHeader',
+                            function (platformEvent) {
+                                this.logMessage('received platform event for a conversation', platformEvent);
+                                if (platformEvent.data.event.type === 'created' && platformEvent.data.sobject.LiveText__AcceptedBy__c === '{!$User.Id}') {
+                                    this.data.sessionId = platformEvent.data.sobject.Id;
+                                    this.updateSession();
+                                    this.eventBus.unsubscribe(subscription);
+                                }
+                            }.bind(this)
+                        );
+                    } else {
+                        this.logMessage('Failed to connected to CometD.', handshakeReply);
+                        console.error('IntegratedComponent: Failed to connected to CometD.', handshakeReply);
+                    }
+                }.bind(this));
+            },
+
+            /**
+             * Link case and account to the session
+             */
+            updateSession: function () {
+                var results = sforce.connection.query(
+                    'SELECT Id, Status, OwnerId, ResponsibleAgency__c, ResponsibleAgencyId__c, IsClosed '
+                    + 'FROM Case '
+                    + 'WHERE Id = \'' + this.data.caseId + '\''
+                );
+                var relatedCase = (results.size + '') === '1' ? results.records : results.records[0];
+
+                //link session to the account and case
+                var session = new sforce.SObject('LiveText__Conversation_Header__c');
+
+                session.Id = this.data.sessionId;
+                session.LiveText__Case__c = this.data.caseId;
+                session.LiveText__Account__c = this.data.accountId;
+                session.ResponsibleAgency__c = relatedCase.ResponsibleAgency__c;
+                session.ResponsibleAgencyId__c = relatedCase.ResponsibleAgencyId__c;
+
+                sforce.connection.update([session]);
+
+                //assign case to the agent
+                /*mooved to a trigger MOS-445
+                var c = new sforce.SObject('Case');
+
+                c.Id = this.data.caseId;
+                c.OwnerId = '{!$User.Id}';
+                if (relatedCase.IsClosed === "false") {
+                    c.Status = 'Open';
+                }
+
+                sforce.connection.update([c]);
+                */
+            },
+
+            /**
+             * Parse provided url and return the specified parameter
+             */
+            getParamFromUrl: function (url, param) {
+                var regex = /[?&]([^=#]+)=([^&#]*)/g;
+                var params = {};
+                var match;
+                while (match = regex.exec(url)) {
+                    params[match[1]] = match[2];
+                }
+                return params[param];
+            },
+
+            /**
+             * Retrieve LiveMessage Session details and open account and case subtabs
+             */
+            openSubTabs: function () {
+                this.isRunning = true;
+
+                var fields = [
+                    'Id',
+                    'Name',
+                    'OwnerId',
+                    'LiveText__Contact__c',
+                    'LiveText__Account__c',
+                    'LiveText__Account__r.Name',
+                    'LiveText__Case__c',
+                    'LiveText__Case__r.CaseNumber',
+                    'LiveText__Status__c'
+                ];
+
+                var results = sforce.connection.query(
+                    'SELECT ' + fields.join(',') + ' '
+                    + 'FROM LiveText__Conversation_Header__c '
+                    + 'WHERE Id = \'' + this.data.sessionId + '\''
+                );
+
+                var sessions = (results.size + '') === '1' ? [results.records] : results.records;
+
+                if (sessions && sessions.length) {
+                    //if (sessions[0].OwnerId !== '{!$User.Id}') {
+                    //    /* the conversation is not owned by the current user, close the tab*/
+                    //    this.logMessage('The current user is not owner of the conversation, close the tab');
+                    //    this.closeCurrentTab();
+                    //    //this.findAndCloseTabsForConversation(this.data);
+                    //    return;
+                    //}
+
+                    var accountId = sessions[0].LiveText__Account__c;
+                    var accountName = sessions[0].LiveText__Account__r.Name;
+                    this.logMessage('Found related account id', accountId);
+                    if (accountId) {
+                        //waiting a bit before open a subtab
+                        //because livemessage package might also open it
+                        //setTimeout(function () {
+                            this.openSubTab(accountId, accountName);
+                        //}.bind(this), 10000);
+                    }
+
+                    var caseId = sessions[0].LiveText__Case__c;
+                    var caseNumber = sessions[0].LiveText__Case__r.CaseNumber;
+                    this.logMessage('Found related case id', caseId);
+                    if (caseId) {
+                        //setTimeout(function () {
+                            this.openSubTab(caseId, caseNumber);
+                        //}.bind(this), 10000);
+                    }
+                }
+            },
+
+//            /**
+//             * Find all tab ids related to the given conversation
+//             */
+//            findAndCloseTabsForConversation: function (conversation) {
+//                //get all Primary Tabs that are opened
+//                sforce.console.getPrimaryTabIds(function (tabIds) {
+//                    console.log('>>> tabIds = ', tabIds);
+//                    for (var i = 0; i < tabIds.ids.length; i++) {
+//                        const tabId = tabIds.ids[i];
+//                        sforce.console.getPageInfo(tabId, function (details) {
+//                            var pageInfo = JSON.parse(details.pageInfo);
+//                            console.log('>>> tabIds = ', tabIds);
+//                            console.log('>>> conversation = ', conversation);
+//                            if (pageInfo && pageInfo.pageInfo) {
+//                                [
+//                                    conversation.sessionId,
+//                                    conversation.accountId,
+//                                    conversation.contactId,
+//                                    conversation.caseId
+//                                ].forEach(function (id) {
+//                                    console.log('>>> forEach id = ', id);
+//                                    console.log('>>> forEach pageInfo = ', pageInfo);
+//                                    if (id && pageInfo.url.indexOf(id) !== -1) {
+//                                        this.closeTab(tabId);
+//                                    }
+//                                }, this);
+//                            }
+//                            if (i == tabIds.ids.length) {
+//                                console.log('>>> closeCurrentTab');
+//                                this.closeCurrentTab();
+//                            }
+//                        }.bind(this));
+//                    }
+//                }.bind(this));
+//            },
+
+//            /**
+//             * Close a single tab. Will unlock the tab and mark all subtabs as clean before closing to prevent
+//             * any dialogs.
+//             *
+//             * @param tabId
+//             */
+//            closeTab: function (tabId) {
+//                sforce.console.disableTabClose(false, tabId, function (closeDisableResponse) {
+//                    this.logMessage('Enabled tab closing', closeDisableResponse, closeDisableResponse.message);
+//
+//                    if (!closeDisableResponse.success) {
+//                        /* most probably the tab no longer exists */
+//                        return;
+//                    }
+//
+//                    sforce.console.getSubtabIds(tabId, function (subTabIds) {
+//                        if (!subTabIds.ids) {
+//                            /* no subtabs, immediately close */
+//                            this.doCloseTab(tabId);
+//                            return;
+//                        }
+//
+//                        var subTabCount = subTabIds.ids.length;
+//
+//                        /* mark all subtabs clean to prevent asking for confirmation */
+//                        subTabIds.ids.forEach(function (subTabId) {
+//                            sforce.console.setTabUnsavedChanges(false, function (markCleanResponse) {
+//                                this.logMessage('Marked tab clean', markCleanResponse, markCleanResponse.success);
+//
+//                                subTabCount--;
+//                                this.logMessage('Remaining subtabs to mark clean:', subTabCount);
+//                                if (subTabCount === 0) {
+//                                    this.doCloseTab(tabId);
+//                                }
+//                            }.bind(this), subTabId);
+//                        }, this);
+//                    }.bind(this));
+//                }.bind(this));
+//            },
+//
+//            /**
+//             * Actually closes a tab.
+//             *
+//             * @param tabId
+//             */
+//            doCloseTab: function (tabId) {
+//                sforce.console.closeTab(tabId, function (closeResponse) {
+//                    this.logMessage('Closed tab', closeResponse);
+//
+//                    if (closeResponse.success) {
+//                        delete this.agentTabs[tabId];
+//                    }
+//                }.bind(this));
+//            },
+
+            /**
+             * Open related a new subtab
+             */
+            openSubTab: function (objectId, tabLabel) {
+                sforce.console.openSubtab(
+                    this.currentTabId,
+                    '/' + objectId,
+                    true,
+                    tabLabel,
+                    null,
+                    null
+                );
+            },
+
+            /**
+             * Unlock the given tab
+             *
+             * @param callback
+             */
+            unlockCurrentTab: function (callback) {
+                var unlockPrimaryTab = function () {
+                    sforce.console.disableTabClose(false, this.currentTabId, callback);
+                }.bind(this);
+
+                sforce.console.getSubtabIds(this.currentTabId, function (subTabIds) {
+                    if (!subTabIds.ids) {
+                        /* no subtabs, immediately close */
+                        unlockPrimaryTab();
+                        return;
+                    }
+
+                    var subTabCount = subTabIds.ids.length;
+
+                    subTabIds.ids.forEach(function (subTabId) {
+                        sforce.console.disableTabClose(false, subTabId, function (response) {
+                            this.logMessage('unlocked subtab', response);
+
+                            subTabCount--;
+                            if (subTabCount === 0) {
+                                unlockPrimaryTab();
+                            }
+                        }.bind(this), subTabId);
+                    }, this);
+                }.bind(this));
+            },
+
+            /**
+             * Close a single tab. Will unlock the tab and mark all subtabs as clean before closing to prevent
+             * any dialogs.
+             */
+            closeCurrentTab: function () {
+                this.logMessage('Trying to close tab for session', this.currentTabId);
+
+                var closePrimaryTab = function () {
+                    sforce.console.closeTab(this.currentTabId, function (closeResponse) {
+                        this.logMessage('Closed tab', closeResponse);
+                    }.bind(this));
+                }.bind(this);
+
+                this.unlockCurrentTab(function (closeDisableResponse) {
+                    this.logMessage('Enabled tab closing', closeDisableResponse, closeDisableResponse.message);
+
+                    sforce.console.getSubtabIds(this.currentTabId, function (subTabIds) {
+                        if (!subTabIds.ids) {
+                            /* no subtabs, immediately close */
+                            closePrimaryTab();
+                            return;
+                        }
+
+                        var subTabCount = subTabIds.ids.length;
+
+                        /* mark all subtabs clean to prevent asking for confirmation */
+                        subTabIds.ids.forEach(function (subTabId) {
+                            sforce.console.setTabUnsavedChanges(false, function (markCleanResponse) {
+                                this.logMessage('Marked tab clean', markCleanResponse, markCleanResponse.success);
+
+                                subTabCount--;
+                                this.logMessage('Remaining subtabs to mark clean:', subTabCount);
+                                if (subTabCount === 0) {
+                                    closePrimaryTab();
+                                }
+                            }.bind(this), subTabId);
+                        }, this);
+                    }.bind(this));
+                }.bind(this));
+            },
+
+            /**
+             * If debugging is enabled, this will log the message and any additional argument to the console.
+             *
+             * @param message
+             */
+            logMessage: function (message) {
+                if (this.configuration.debug) {
+                    var args = new Array(arguments.length + 1);
+                    args[0] = 'ConversationSessionHiddenPage:';
+
+                    for (var i = 0; i < arguments.length; i++) {
+                        args[i + 1] = arguments[i];
+                    }
+
+                    console.log.apply(console, args);
+                }
+            }
+        };
+
+        window.onload = function (event) {
+            ConversationSessionHiddenPage.initialize({
+                sessionId: '{!$Api.Session_ID}',
+                urlParams: {
+                    sessionIdParamName: 'cvid',
+                    caseIdParamName: 'caseId',
+                    caseNumberParamName: 'caseNumber',
+                    accountIdParamName: 'accountId'
+                }
+            });
+
+            ConversationSessionHiddenPage.run();
+        };
+    </script>
+</apex:page>

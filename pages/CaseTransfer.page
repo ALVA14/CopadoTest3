@@ -1,0 +1,223 @@
+<apex:page standardController="Case" extensions="CaseTransfer_CC">
+
+    <style>
+        .ct--width-100 {
+            width: 100%;
+        }
+
+        .ct--side-indent {
+            width: 10%;
+        }
+
+        .ct--left-content-col {
+            width: 40%;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .ct--right-content-col {
+            width: 40%;
+        }
+
+        .ct--min-width-50 {
+            min-width: 50%;
+        }
+
+        .ct--padding-5 {
+            padding: 5px;
+        }
+
+        .ct--padding-10 {
+            padding: 10px !important;
+        }
+
+        .ct--margin-top-20 {
+            margin-top: 20px;
+        }
+    </style>
+
+    <apex:includeScript value="/support/console/44.0/integration.js"/>
+
+    <apex:form id="transferForm">
+
+        <apex:pageMessages />
+
+        <table class="ct--width-100 ct--margin-top-20">
+            <apex:outputPanel rendered="{! NOT(currentCase.IsClosed) }" >
+                <tr>
+                    <td class="ct--side-indent"></td>
+                    <td class="ct--left-content-col">
+                        <label for="queue">{! $Label.Case_Transfer_Queue }</label>
+                    </td>
+                    <td class="ct--right-content-col">
+                        <apex:selectList size="1" styleClass="ct--width-100 ct--padding-5" id="queue" value="{! selectedQueue }">
+                            <apex:selectOptions value="{! availableQueues }"/>
+                        </apex:selectList>
+                    </td>
+                    <td class="ct--side-indent"></td>
+                </tr>
+
+                <tr>
+                    <td class="ct--side-indent"></td>
+                    <td class="ct--left-content-col">
+                        <label for="comment">{! $Label.Case_Transfer_Comment }</label>
+                    </td>
+                    <td class="ct--right-content-col" style="padding-right: 13px;">
+                        <apex:inputTextarea styleClass="ct--width-100 ct--padding-5" rows="4" id="comment" value="{! comment }"/>
+                    </td>
+                    <td class="ct--side-indent"></td>
+                </tr>
+            </apex:outputPanel>
+
+            <tr>
+                <td class="ct--side-indent"></td>
+                <td class="ct--left-content-col">
+                    <apex:commandButton styleClass="ct--min-width-50 ct--padding-10"
+                                        onclick="CaseTransfer.closeCurrentTab()"
+                                        value="{! $Label.Case_Transfer_Back_Btn }"
+                                        id="backButton"
+                    />
+                </td>
+                <td class="ct--right-content-col">
+                    <apex:commandButton rendered="{! NOT(currentCase.IsClosed) }"
+                                        styleClass="ct--min-width-50 ct--padding-10"
+                                        action="{! transfer }"
+                                        oncomplete="CaseTransfer.onTransferComplete()"
+                                        value="{! $Label.Case_Transfer_Transfer_Btn }"
+                                        id="transferButton"
+                                        reRender="transferForm"
+                    />
+                </td>
+                <td class="ct--side-indent"></td>
+            </tr>
+        </table>
+
+        <script type="text/javascript">
+            var CaseTransfer = {
+                configuration: {
+                    debug: false
+                },
+
+                currentTabId: null,
+
+                /**
+                 * Initialize the current tab id
+                 */
+                initialize: function () {
+                    sforce.console.getEnclosingTabId(function (response) {
+                        this.currentTabId = response.id;
+                    }.bind(this));
+                },
+
+                /**
+                 * Close the current (transfer form) tab, cancel the transfer
+                 */
+                closeCurrentTab: function () {
+                    sforce.console.getPageInfo(this.currentTabId, function (pageInfoResponse) {
+                        var pageInfo = JSON.parse(pageInfoResponse.pageInfo);
+
+                        this.logMessage('parsed page info', pageInfo);
+
+                        sforce.console.getEnclosingPrimaryTabId(function (enclosingTabResponse) {
+                            this.logMessage('Going to replace the transfer subtab with the original url');
+
+                            sforce.console.openSubtab(
+                                enclosingTabResponse.id,
+                                pageInfo.url,
+                                true,
+                                pageInfo.objectName,
+                                this.currentTabId
+                            );
+                        }.bind(this));
+                    }.bind(this));
+                },
+
+                /**
+                 * Handle the completion of the transfer
+                 */
+                onTransferComplete: function () {
+                    if ({! isTransferred }) {
+                        //alert('{! $Label.Case_Transfer_Success_Message }');
+
+                        /* close focused primary tab, not enclosing tab, which is a subtab */
+                        sforce.console.getFocusedPrimaryTabId(function (response) {
+                            this.closeTab(response.id);
+                        }.bind(this));
+                    }
+                },
+
+                /**
+                 * Close a single tab. Will unlock the tab and mark all subtabs as clean before closing to prevent
+                 * any dialogs.
+                 *
+                 * @param tabId
+                 */
+                closeTab: function (tabId) {
+                    this.logMessage('Trying to close tab', tabId);
+
+                    sforce.console.disableTabClose(false, tabId, function (closeDisableResponse) {
+                        this.logMessage('Enabled tab closing', closeDisableResponse, closeDisableResponse.message);
+
+                        sforce.console.getSubtabIds(tabId, function (subTabIds) {
+                            this.logMessage('found subtabs', subTabIds);
+
+                            if (!subTabIds.success || !subTabIds.ids) {
+                                /* no subtabs, immediately close */
+                                this.doCloseTab(tabId);
+                                return;
+                            }
+
+                            var subTabCount = subTabIds.ids.length;
+
+                            /* mark all subtabs clean to prevent asking for confirmation */
+                            subTabIds.ids.forEach(function (subTabId) {
+                                sforce.console.setTabUnsavedChanges(false, function (markCleanResponse) {
+                                    this.logMessage('Marked tab clean', markCleanResponse, markCleanResponse.success);
+
+                                    subTabCount--;
+                                    this.logMessage('Remaining subtabs to mark clean:', subTabCount);
+                                    if (subTabCount === 0) {
+                                        this.doCloseTab(tabId);
+                                    }
+                                }.bind(this), subTabId);
+                            }, this);
+                        }.bind(this));
+                    }.bind(this));
+                },
+
+                /**
+                 * Actually closes a tab.
+                 *
+                 * @param tabId
+                 */
+                doCloseTab: function (tabId) {
+                    sforce.console.closeTab(tabId, function (closeResponse) {
+                        this.logMessage('Closed tab', closeResponse);
+                    }.bind(this));
+                },
+
+                /**
+                 * If debugging is enabled, this will log the message and any additional argument to the console.
+                 *
+                 * @param message
+                 */
+                logMessage: function (message) {
+                    if (this.configuration.debug) {
+                        var args = new Array(arguments.length + 1);
+                        args[0] = 'CaseTransfer:';
+
+                        for (var i = 0; i < arguments.length; i++) {
+                            args[i + 1] = arguments[i];
+                        }
+
+                        console.log.apply(console, args);
+                    }
+                }
+            };
+
+            CaseTransfer.initialize();
+        </script>
+
+    </apex:form>
+
+</apex:page>

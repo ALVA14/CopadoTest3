@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- LiveMessage Number --></label>
+        <name>LiveText__LiveTextNumber__c</name>
+        <relationshipLabel><!-- Opt-In Status --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>LiveText__Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- SubscriberPhoneNumber --></label>
+        <name>LiveText__SubscriberPhoneNumber__c</name>
+    </fields>
+</CustomObjectTranslation>

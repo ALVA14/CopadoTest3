@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Text Session Header --></label>
+        <name>LiveText__Conversation_Header__c</name>
+        <relationshipLabel><!-- Conversation Events --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Event --></label>
+        <name>LiveText__Event__c</name>
+    </fields>
+    <fields>
+        <label><!-- Linked_Object --></label>
+        <name>LiveText__Linked_Object__c</name>
+    </fields>
+</CustomObjectTranslation>

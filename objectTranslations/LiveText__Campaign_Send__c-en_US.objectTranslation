@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- BatchId --></label>
+        <name>LiveText__BatchId__c</name>
+    </fields>
+    <fields>
+        <help><!-- Lookup to the Campaign associated with this Send --></help>
+        <label><!-- Campaign --></label>
+        <name>LiveText__Campaign__c</name>
+        <relationshipLabel><!-- CampaignSends --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Date and Time the last batch of the send completed. --></help>
+        <label><!-- EndTime --></label>
+        <name>LiveText__EndTime__c</name>
+    </fields>
+    <fields>
+        <help><!-- Campaign Member status if message is not successfully sent or member is deemed a duplicate. --></help>
+        <label><!-- ErrorStatus --></label>
+        <name>LiveText__ErrorStatus__c</name>
+    </fields>
+    <fields>
+        <help><!-- The message to be sent to all eligible campaign members --></help>
+        <label><!-- Message --></label>
+        <name>LiveText__Message__c</name>
+    </fields>
+    <fields>
+        <help><!-- Campaign Member status if member opts out. --></help>
+        <label><!-- OptoutStatus --></label>
+        <name>LiveText__OptoutStatus__c</name>
+    </fields>
+    <fields>
+        <help><!-- Campaign Member status if member responds. --></help>
+        <label><!-- ResponseStatus --></label>
+        <name>LiveText__ResponseStatus__c</name>
+    </fields>
+    <fields>
+        <help><!-- Date and Time the first batch of the send was started. --></help>
+        <label><!-- StartTime --></label>
+        <name>LiveText__StartTime__c</name>
+    </fields>
+    <fields>
+        <help><!-- Campaign Member status if message is successfully sent. --></help>
+        <label><!-- SuccessStatus --></label>
+        <name>LiveText__SuccessStatus__c</name>
+    </fields>
+    <fields>
+        <help><!-- The number to send messages from --></help>
+        <label><!-- SupportNumber --></label>
+        <name>LiveText__SupportNumber__c</name>
+        <relationshipLabel><!-- CampaignSends --></relationshipLabel>
+    </fields>
+</CustomObjectTranslation>

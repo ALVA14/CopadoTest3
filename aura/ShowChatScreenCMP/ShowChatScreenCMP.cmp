@@ -1,0 +1,66 @@
+<!--
+Author:      Sudipta Karmakar
+Company:     Salesforce
+Description:
+
+Attributes:
+Event Handlers:
+History
+7/30/18    Sudipta Karmakar   Initial version
+-->
+<aura:component description="ShowChatScreenCMP" controller="ChatScreen_CC">
+    <aura:attribute name="livesessionid" type="String" default="false" access="global"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="livesessiondata" type="Object" access="private"/>
+    <aura:attribute name="livechatdata" type="Object[]" access="private"/>
+    <aura:method name="myCheckMethod" action="{!c.executecheck}">
+        <aura:attribute name="message" type="Object"/>
+    </aura:method>
+
+    <div class="slds-chat-bookend" >
+      <span class="slds-icon_container slds-icon-utility-chat slds-chat-icon">
+          <lightning:icon iconName="utility:chat" alternativeText="Chat"/>
+      </span>
+        <p>Chat started with
+            <b>{!v.livesessiondata.LiveText__Contact__r.Name}</b> •
+            <ui:outputDateTime value="{!v.livesessiondata.LiveText__SessionReopenedTime__c}"/>
+        </p>
+
+    </div>
+    <aura:iteration items="{!v.livechatdata}" var="ochat">
+        <aura:renderIf isTrue="{!!ochat.LiveText__Sent_To_Customer__c}">
+            <section role="log"
+                     class="slds-chat slds-chat-list slds-chat-listitem slds-chat-listitem_inbound slds-chat-message">
+                <div class="slds-chat-message__body">
+
+                    <div class="slds-chat-message__text slds-chat-message__text_inbound">
+
+                        <aura:if isTrue="{!ochat.Image != null}">
+                            <img src="{!ochat.Image}"/>
+                            <aura:set attribute="else">
+                                <span>{!ochat.LiveText__Message__c}</span>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                    <div class="slds-chat-message__meta">{!v.livesessiondata.LiveText__Contact__r.Name} •
+                        <ui:outputDateTime value="{!ochat.CreatedDate}"/>
+                    </div>
+                </div>
+            </section>
+        </aura:renderIf>
+        <aura:renderIf isTrue="{!ochat.LiveText__Sent_To_Customer__c}">
+            <section role="log"
+                     class="slds-chat slds-chat-list slds-chat-listitem slds-chat-listitem_outbound slds-chat-message">
+                <div class="slds-chat-message__body">
+                    <div class="slds-chat-message__text slds-chat-message__text_outbound">
+                        <span>{!ochat.LiveText__Message__c}</span>
+                    </div>
+                    <div class="slds-chat-message__meta">{!ochat.CreatedBy.Name} •
+                        <ui:outputDateTime value="{!ochat.CreatedDate}"/>
+                    </div>
+                </div>
+            </section>
+        </aura:renderIf>
+    </aura:iteration>
+
+</aura:component>

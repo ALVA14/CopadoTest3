@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>L1 OTT</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>OTT</publicGroup>
+        </publicGroups>
+        <users>
+            <user>sf-generic@sky.de</user>
+            <user>a1_ott@sky.de</user>
+            <user>a2_ott@sky.de</user>
+            <user>tl_ott@sky.de</user>
+            <user>stefano.pramparo@external.sky.de</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>Sky_Ticket</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>LiveText__Conversation_Header__c</sobjectType>
+    </queueSobject>
+</Queue>

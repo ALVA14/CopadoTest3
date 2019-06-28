@@ -1,0 +1,28 @@
+<!--
+Author:      Sven Kretschmann
+Company:     Salesforce
+Description: Display a dt / dd combination with truncation of the captions.
+
+Attributes:  label
+             value
+Event Handlers:
+History
+31.01.2019   Sven Kretschmann Initial version
+-->
+<aura:component description="Displays a dt with the label and a dd with the value, both with truncate and optional classes">
+    <aura:attribute name="label" access="global" type="String" required="true" description="The label of the item"/>
+    <aura:attribute name="value" access="global" type="String" required="true" description="The value of the item"/>
+    <aura:attribute name="tooltip" access="global" type="String" required="false"
+                    description="The tooltip of the item, can be used instead of the value for the non-truncated tooltip."/>
+
+    <aura:attribute name="labelCssClass" access="global" type="String" required="false" description="Optional css classes for the label" default=""/>
+    <aura:attribute name="valueCssClass" access="global" type="String" required="false" description="Optional css classes for the value" default=""/>
+
+    <dt class="{!'slds-item_label slds-truncate ' + (v.labelCssClass + '')}" title="{!v.label}">
+        {!v.label}
+    </dt>
+
+    <dd class="{!'slds-item_label slds-truncate ' + (v.valueCssClass + '')}" title="{!empty(v.tooltip) ? v.value : v.tooltip}">
+        {!v.value}{!v.body}
+    </dd>
+</aura:component>

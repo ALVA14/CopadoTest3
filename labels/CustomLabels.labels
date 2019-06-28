@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>CaseManualClose</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CaseManualClose</shortDescription>
+        <value>Manual Close</value>
+    </labels>
+    <labels>
+        <fullName>Case_Close_TranscriptMessage</fullName>
+        <categories>Case</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Close_TranscriptMessage</shortDescription>
+        <value>{0} closed case {1} at {2}.</value>
+    </labels>
+    <labels>
+        <fullName>Case_Reassignment_ErrorMsg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Reassignment_ErrorMsg</shortDescription>
+        <value>You don&apos;t have permissions to reassign a case, please contact your supervisor or administrator.</value>
+    </labels>
+    <labels>
+        <fullName>Case_SendMessage_ActiveSession</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_SendMessage_ActiveSession</shortDescription>
+        <value>The customer has an active session. Please try later.</value>
+    </labels>
+    <labels>
+        <fullName>Case_SendMessage_ClosedCase</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_SendMessage_ClosedCase</shortDescription>
+        <value>You are not allowed to send a message for a closed case.</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Back_Btn</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Back_Btn</shortDescription>
+        <value>Back</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Comment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Comment</shortDescription>
+        <value>Comment</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Exception_ClosedCase</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Exception_ClosedCase</shortDescription>
+        <value>The case is already closed.</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Exception_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Exception_Message</shortDescription>
+        <value>Please select a queue and enter a comment.</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Exception_MissingData</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Exception_MissingData</shortDescription>
+        <value>Please select a queue and enter a comment.</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Exception_MissingSession</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Exception_MissingSession</shortDescription>
+        <value>There is no conversation for this case.</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Queue</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Queue</shortDescription>
+        <value>Queue</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Success_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Success_Message</shortDescription>
+        <value>Case has been successfully transferred to queue.</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Transfer_Btn</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Transfer_Btn</shortDescription>
+        <value>Transfer</value>
+    </labels>
+    <labels>
+        <fullName>Case_Transfer_Transfer_Mark</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case_Transfer_Transfer_Mark</shortDescription>
+        <value>transfer</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Activation_Date</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Activation Date</shortDescription>
+        <value>activationDate</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Asset_List</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Asset List</shortDescription>
+        <value>AssetList</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Bank_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Bank Name</shortDescription>
+        <value>Bank Name:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Basic_Customer_Data</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Basic Customer Data</shortDescription>
+        <value>Basic Customer Data</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Campaign_Family</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Campaign Family</shortDescription>
+        <value>CampaignFamily</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Campaign_List</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Campaign List</shortDescription>
+        <value>Campaign List</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Campaign_Number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Campaign Number</shortDescription>
+        <value>CampaignNumber</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Campaign_Type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Campaign Type</shortDescription>
+        <value>CampaignType</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Contract</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Contract</shortDescription>
+        <value>Contract</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Contract_Cancellation_Date</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Contract Cancellation Date</shortDescription>
+        <value>Contract Cancellation Date:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Contract_Number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Contract Number</shortDescription>
+        <value>Contract Number:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Contract_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Contract Status</shortDescription>
+        <value>Contract Status:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Contract_Type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Contract Type</shortDescription>
+        <value>Contract Type:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Customer_Category</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Customer Category</shortDescription>
+        <value>Customer Category:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Customer_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Customer Status</shortDescription>
+        <value>Customer Status:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Date_of_birth</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Date of birth</shortDescription>
+        <value>Date of birth:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Email_address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Email address</shortDescription>
+        <value>E-Mail address:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Error_ApiFailure</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer_Data_Error_ApiFailure</shortDescription>
+        <value>FAA response</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Error_CustomerNotFound</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer_Data_Error_CustomerNotFound</shortDescription>
+        <value>Customer not found</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Error_NoCustomerNumber</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer_Data_Error_NoCustomerNumber</shortDescription>
+        <value>No customer number available</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_First_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data First Name</shortDescription>
+        <value>First Name:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Last_Activation_Date</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Last Activation Date</shortDescription>
+        <value>lastActivationDate</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Last_Contact_Date</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Last Contact Date</shortDescription>
+        <value>Last Contact Date:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Last_Contact_Reason</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Last Contact Reason</shortDescription>
+        <value>Last Contact Reason:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Last_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Last Name</shortDescription>
+        <value>Last Name:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Loading</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Loading</shortDescription>
+        <value>Loading...</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_No_customer_data</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data No customer data</shortDescription>
+        <value>No customer data</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Number</shortDescription>
+        <value>number</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Operator</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Operator</shortDescription>
+        <value>Operator:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Package_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Package Name</shortDescription>
+        <value>Package Name:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Product</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Product</shortDescription>
+        <value>Product</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Product_List</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Product List</shortDescription>
+        <value>ProductList</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Rate_Code</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Rate Code</shortDescription>
+        <value>rateCode</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Receiver_Model</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Receiver Model</shortDescription>
+        <value>receiverModel</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Receiver_asset</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Receiver asset</shortDescription>
+        <value>Receiver asset</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Reception_Type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Reception Type</shortDescription>
+        <value>Reception Type:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Sky_Plus</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Sky Plus</shortDescription>
+        <value>SkyPlus</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Sky_Q_flag_status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Sky Q flag status</shortDescription>
+        <value>Sky Q flag status:</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Smart_Card_Asset</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Smart Card Asset</shortDescription>
+        <value>Smart card asset</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Data_Technology</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Data Technology</shortDescription>
+        <value>technology</value>
+    </labels>
+    <labels>
+        <fullName>LiveSessionHeadersDisplay_QueueSelector_Label</fullName>
+        <categories>LiveSessionHeadersDisplay</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveSessionHeadersDisplay_QueueSelector_Label</shortDescription>
+        <value>Queue</value>
+    </labels>
+    <labels>
+        <fullName>LiveSessionHeadersDisplay_QueueSelector_Placeholder</fullName>
+        <categories>LiveSessionHeadersDisplay</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveSessionHeadersDisplay_QueueSelector_Placeholder</shortDescription>
+        <value>Please choose a queue to monitor...</value>
+    </labels>
+    <labels>
+        <fullName>LiveSessionHeadersDisplay_Session_CaseNumber</fullName>
+        <categories>LiveSessionHeadersDisplay</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveSessionHeadersDisplay_Session_CaseNumber</shortDescription>
+        <value>Case Number</value>
+    </labels>
+    <labels>
+        <fullName>LiveSessionHeadersDisplay_Session_Channel</fullName>
+        <categories>LiveSessionHeadersDisplay</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveSessionHeadersDisplay_Session_Channel</shortDescription>
+        <value>Channel</value>
+    </labels>
+    <labels>
+        <fullName>LiveSessionHeadersDisplay_Session_ContactName</fullName>
+        <categories>LiveSessionHeadersDisplay</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveSessionHeadersDisplay_Session_ContactName</shortDescription>
+        <value>Contact Name</value>
+    </labels>
+    <labels>
+        <fullName>LiveSessionHeadersDisplay_Session_Name</fullName>
+        <categories>LiveSessionHeadersDisplay</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveSessionHeadersDisplay_Session_Name</shortDescription>
+        <value>Session Name</value>
+    </labels>
+    <labels>
+        <fullName>LiveSessionHeadersDisplay_Session_Status</fullName>
+        <categories>LiveSessionHeadersDisplay</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveSessionHeadersDisplay_Session_Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>LiveSessionHeadersDisplay_Widget_NoConversationsMessage</fullName>
+        <categories>LiveSessionHeadersDisplay</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveSessionHeadersDisplay_Widget_NoConversationsMessage</shortDescription>
+        <value>There are no active conversations in this queue.</value>
+    </labels>
+    <labels>
+        <fullName>LiveSessionHeadersDisplay_Widget_Title</fullName>
+        <categories>LiveSessionHeadersDisplay</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveSessionHeadersDisplay_Widget_Title</shortDescription>
+        <value>Active Conversations</value>
+    </labels>
+    <labels>
+        <fullName>LiveText_PreviousAgentWentoffline</fullName>
+        <categories>LivemessageHiddenPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LiveText_PreviousAgentWentoffline</shortDescription>
+        <value>Previous Agent Went Offline</value>
+    </labels>
+</CustomLabels>

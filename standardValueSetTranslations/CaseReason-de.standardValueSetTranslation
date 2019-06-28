@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSetTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <valueTranslation>
+        <masterLabel>Automatic Close</masterLabel>
+        <translation>Automatisch geschlossen</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Billing Information</masterLabel>
+        <translation>Rechnungsauskunft</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Complex functionality</masterLabel>
+        <translation><!-- Complex functionality --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Existing problem</masterLabel>
+        <translation><!-- Existing problem --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Information Request Confirmation Letter</masterLabel>
+        <translation>Informationsanfrage - Bestätigungsbrief</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Information Request Contract Change</masterLabel>
+        <translation>Informationsanfrage - Vertragsänderung</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Information Request Current Special Topics</masterLabel>
+        <translation>Informationsanfrage - Aktuelle Sonderthemen</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Information Request Devices</masterLabel>
+        <translation>Informationsanfrage - Geräte</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Information Request Products</masterLabel>
+        <translation>Informationsanfrage - Produkte</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Information Request Program</masterLabel>
+        <translation>Informationsanfrage - Programm</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Information Request TV Digital</masterLabel>
+        <translation>Informationsanfrage - TV Digital</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Instructions not clear</masterLabel>
+        <translation><!-- Instructions not clear --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>New problem</masterLabel>
+        <translation><!-- New problem --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Siebel Request</masterLabel>
+        <translation><!-- Siebel Request --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Technics Current Special Topics</masterLabel>
+        <translation>Technik - Aktuelle Sonderthemen</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Technics Device Malfunction</masterLabel>
+        <translation>Technik - Gerätefehlfunktion</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Technics Error Message</masterLabel>
+        <translation>Technik - Bildeinblendung</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Technics Image/Sound Interference</masterLabel>
+        <translation>Technik - Störung Bild/Ton</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Technics Sky Go</masterLabel>
+        <translation>Technik - Sky Go</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Technics Sky Ticket</masterLabel>
+        <translation>Technik - Sky Ticket</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>User didn&apos;t attend training</masterLabel>
+        <translation><!-- User didn&apos;t attend training --></translation>
+    </valueTranslation>
+</StandardValueSetTranslation>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Is Transfer Message --></label>
+        <name>Is_Transfer_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attachment Id For Reparenting --></label>
+        <name>LiveText__Attachment_Id_For_Reparenting__c</name>
+    </fields>
+    <fields>
+        <label><!-- Conversation Header --></label>
+        <name>LiveText__Conversation_Header__c</name>
+        <relationshipLabel><!-- SMS Texts (Conversation Header) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- End Chat Message --></label>
+        <name>LiveText__End_Chat_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Code --></label>
+        <name>LiveText__Error_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Sub Code --></label>
+        <name>LiveText__Error_Sub_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Message Id --></label>
+        <name>LiveText__External_Message_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- First_Name --></label>
+        <name>LiveText__First_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Formatted Originating Number --></label>
+        <name>LiveText__Formatted_Originating_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Group --></label>
+        <name>LiveText__Group_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Initial Message --></label>
+        <name>LiveText__Initial_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Intent --></label>
+        <name>LiveText__Intent_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Form Response? --></label>
+        <name>LiveText__Is_Form_Response__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last_Name --></label>
+        <name>LiveText__Last_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Message --></label>
+        <name>LiveText__Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- OriginTimestamp --></label>
+        <name>LiveText__OriginTimestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Originating Number --></label>
+        <name>LiveText__Originating_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sent to Customer --></label>
+        <name>LiveText__Sent_To_Customer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source --></label>
+        <name>LiveText__Source__c</name>
+        <picklistValues>
+            <masterLabel>LiveText</masterLabel>
+            <translation><!-- LiveText --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Salesforce</masterLabel>
+            <translation><!-- Salesforce --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>LiveText__Status__c</name>
+        <picklistValues>
+            <masterLabel>Delivered</masterLabel>
+            <translation><!-- Delivered --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Error</masterLabel>
+            <translation><!-- Error --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Support Number --></label>
+        <name>LiveText__Support_Number__c</name>
+        <relationshipLabel><!-- SMS Texts (Support Number) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Thumbnail_Photo_Url --></label>
+        <name>LiveText__Thumbnail_Photo_Url__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time_Zone --></label>
+        <name>LiveText__Time_Zone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unique SMS --></label>
+        <name>LiveText__Unique_SMS__c</name>
+    </fields>
+</CustomObjectTranslation>

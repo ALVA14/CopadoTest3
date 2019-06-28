@@ -1,0 +1,531 @@
+<!-- ------------------------------------------------------------
+Author: Sudipta Karmakar
+Company: Salesforce
+Description: Page to keep track of the Idle time of the agent and change Tab Color
+Created: 7/12/18
+History
+12.07.2018  Sudipta Karmakar    Initial version
+08.02.2019  Sven Kretschmann    Refactored, closing tab with prior clean mark of subtabs
+11.02.2019  Pavel Kalinin       Insert SMS text when reopening transferred conversation
+14.02.2019  Sven Kretschmann    Disabled debugging and tab colorizing, unlock tab for ended conversation on load
+-------------------------------------------------------------->
+<apex:page id="LiveMessageHiddenPage" standardController="LiveText__Conversation_Header__c">
+    <apex:includeScript value="/soap/ajax/43.0/connection.js"/>
+    <apex:includeScript value="/support/console/43.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.cometd}"/>
+
+    <script>
+        /**
+         * Wrapper object to not pollute the global space
+         */
+        var LiveMessageHiddenPage = {
+            /**
+             * Provide these configuration elements when calling the initialize method
+             */
+            configuration: {
+                highlightThresholds: [
+                    {timeout: 30000, color: '#FFFF00'},
+                    {timeout: 60000, color: '#FFA500'},
+                    {timeout: 90000, color: '#FF0000'}
+                ],
+                checkConversationsInterval: 7500,
+                debug: true
+            },
+
+            /**
+             * The run level of this component:
+             *
+             * -1: not started
+             * 0: pending start
+             * 1: started
+             * 2: currently executing run
+             */
+            runLevel: -1,
+
+            /**
+             * The id of the current tab
+             */
+            currentTabId: null,
+
+            /**
+             * The time the tab was last focused
+             */
+            lastFocusTime: null,
+
+            /**
+             * Holds the data of the current conversation
+             */
+            data: {},
+
+            /**
+             * Holds the references to the bound functions
+             */
+            boundFunctions: {},
+
+            /**
+             * Initialize this component and the backend connection.
+             *
+             * @param configuration
+             */
+            initialize: function (configuration) {
+                if (configuration) {
+                    this.configure(configuration);
+
+                    if (configuration.sessionId) {
+                        sforce.connection.sessionId = '{!$Api.Session_ID}';
+                    }
+                }
+
+                this.logMessage('initialize');
+                this.refreshData();
+                sforce.console.getEnclosingPrimaryTabId(function (res) {
+                    this.logMessage('Found enclosing tab id', res);
+                    this.lastFocusTime = new Date();
+                    this.currentTabId = res.id;
+
+                    this.trackConversationTab();
+
+                    if (this.runLevel === 0) {
+                        this.start();
+                    }
+                }.bind(this));
+                this.removelogout();
+
+                this.boundFunctions.highlightTabResponseHandler = this.handleHighlightTabResponse.bind(this);
+            },
+
+            /**
+             * Track the conversation tab to close current tab after closing conversation.
+             */
+            trackConversationTab: function () {
+                sforce.console.addEventListener(sforce.console.ConsoleEvent.OPEN_TAB, function(openTabRes) {
+                    this.logMessage('Tab open listener result', openTabRes);
+                    sforce.console.getPageInfo(openTabRes.id, function (details) {
+                        this.logMessage('Tab open listener -> page info result', details);
+                        var pageInfo = JSON.parse(details.pageInfo);
+                        if (pageInfo.url.includes(this.data.id)) { // a conversation tab was opened for the session
+                            sforce.console.setTabTitle('', this.currentTabId);
+                            sforce.console.addEventListener(sforce.console.ConsoleEvent.CLOSE_TAB, function (closeTabRes) {
+                                this.closeCurrentTab();
+                            }.bind(this), { tabId : openTabRes.id });
+                            sforce.console.removeEventListener(sforce.console.ConsoleEvent.OPEN_TAB, function(openTabRemoveRes) {
+                                //
+                            }, { tabId : this.currentTabId });
+                        }
+                    }.bind(this));
+                }.bind(this));
+            },
+
+            /**
+             * Configure this component.
+             *
+             * @param configuration
+             */
+            configure: function (configuration) {
+                if (configuration.debug) {
+                    this.configuration.debug = true;
+                }
+
+                if (configuration.highlightThresholds) {
+                    this.configuration.highlightThresholds = configuration.highlightThresholds;
+                }
+
+                if (configuration.checkConversationsInterval) {
+                    this.configuration.checkConversationsInterval = configuration.checkConversationsInterval;
+                }
+            },
+
+            /**
+             * Refresh the data with the current record bindings
+             */
+            refreshData: function () {
+                this.data = {
+                    id: '{!LiveText__Conversation_Header__c.Id}',
+                    status: '{!LiveText__Conversation_Header__c.LiveText__Status__c}',
+                    ownerId: '{!LiveText__Conversation_Header__c.OwnerId}',
+                    caseId: '{!LiveText__Conversation_Header__c.LiveText__Case__c}',
+                    accountId: '{!LiveText__Conversation_Header__c.LiveText__Account__c}',
+                    endedTime: '{!LiveText__Conversation_Header__c.LiveText__EndedTime__c}',
+                    channelSfId: '{!LiveText__Conversation_Header__c.LiveText__Support_Number__c}',
+                    channelNumber: '{!LiveText__Conversation_Header__c.LiveText__Support_Number__r.LiveText__Number__c}',
+                    transferMessage: '{!LiveText__Conversation_Header__c.LiveText__MessagePreview__c}',
+                    transferred: {!LiveText__Conversation_Header__c.Transferred__c},
+                    contactName: '{!LiveText__Conversation_Header__c.LiveText__Contact__r.Name}',
+                    logout: {!LiveText__Conversation_Header__c.Logout__c}
+                };
+            },
+
+            /**
+             * Check if there are any issues with the conversation, like 'new' status or being transferred
+             */
+            canStart: function () {
+                this.refreshData();
+
+                if (!this.currentTabId) {
+                    this.logMessage('still waiting for the tab id, setting runLevel 0');
+                    this.runLevel = 0;
+
+                    return false;
+                }
+
+                return !this.closeNewSession() && !this.resumeSessionAfterTransfer();
+            },
+
+            /**
+             * Start running, will repeat to run with the configured checkConversationsInterval
+             */
+            start: function () {
+
+                if (this.runLevel < 1 && this.canStart()) {
+                    this.logMessage('start running');
+                    this.runLevel = 1;
+
+                    var boundRun = this.run.bind(this);
+                    window.setInterval(boundRun, this.configuration.checkConversationsInterval);
+
+                    this.unlockTabForEndedConversation();
+                }
+            },
+
+            /**
+             * Refresh conversations and tab, close stale conversation tabs
+             */
+            run: function () {
+                if (this.runLevel < 1) {
+                    this.logMessage('run called before start, start first');
+                    this.start();
+                    return;
+                }
+
+                if (this.runLevel === 2) {
+                    this.logMessage('already running, ignore new invocation');
+                    return;
+                }
+
+                this.logMessage('executing run');
+
+                this.runLevel = 2;
+
+                this.refreshData();
+                this.highlightTab();
+
+                this.runLevel = 1;
+            },
+
+            /**
+             * Unlock the tab if the conversation is ended. Sometimes the tabs stay open and locked
+             * and normal users can't close them anymore.
+             */
+            unlockTabForEndedConversation: function () {
+                if (this.data.id && this.data.status === 'Ended') {
+                    this.unlockCurrentTab(function (response) {
+                        this.logMessage('Unlocked current tab for ended conversation', response);
+                    }.bind(this));
+                }
+            },
+
+            /**
+             * One time method, immediately close new conversations, agents shouldn't mess around with these.
+             */
+            closeNewSession: function () {
+                if (this.data.id && this.data.status === 'New') {
+                    this.logMessage('Close new session, DISABLED BY SK, 19.02.2019. Might trigger an issue with capacity handling.');
+
+                    this.logMessage('this.data = ', this.data);
+                    if (!this.data.caseId || !this.data.accountId) {
+                        // don't close the session's tab if the session has a case and account assigned to it
+                        this.closeCurrentTab();
+                    }
+                    return true;
+                }
+
+                return false;
+            },
+
+            /**
+             * One time method, when the conversation has been transferred, we need to reactivate it
+             */
+            resumeSessionAfterTransfer: function () {
+                var timeSinceConversationEnd = new Date() - new Date(this.data.endedTime);
+                console.log('>>> this.data',JSON.stringify(this.data));
+                console.log('>>> this.data.transferred = ', this.data.transferred);
+
+                if (this.data.ownerId === '{!$User.Id}' &&
+                    ['Active', 'Ended'].indexOf(this.data.status) !== -1 &&
+                    (this.data.transferred || this.data.logout)) {
+
+                    this.logMessage('resumeSessionAfterTransfer');
+
+                    //update session
+                    var session = new sforce.SObject('LiveText__Conversation_Header__c');
+
+                    session.Id = this.data.id;
+                    session.LiveText__Status__c = 'Active';
+                   // session.LastMessageReceived__c = null;
+                   // session.LastMessageSent__c = null;
+                    session.LiveText__EndedTime__c = null;
+                    session.LiveText__AcceptedBy__c = this.data.ownerId;
+                    session.Transferred__c = false;
+                    session.Logout__c = false;
+
+                    sforce.connection.update([session]);
+
+                    //reopen case
+                    /*mooved to a trigger MOS-445
+                    var c = new sforce.SObject('Case');
+
+                    c.id = this.data.caseId;
+                    c.ownerId = '{!$User.Id}';
+                    c.status = 'Open';
+
+                    sforce.connection.update([c]);*/
+
+                    //insert SMS Texts record (fix for MOS-373)
+                    if (!this.data.logout) {
+                        var smsText = new sforce.SObject('LiveText__SMS_Text__c');
+
+                        smsText.LiveText__Conversation_Header__c = this.data.id;
+                        smsText.LiveText__Message__c = this.data.transferMessage;
+                        smsText.LiveText__Source__c = 'Salesforce';
+                        smsText.LiveText__Originating_Number__c = this.data.channelNumber;
+                        smsText.LiveText__Support_Number__c = this.data.channelSfId;
+                        smsText.LiveText__Sent_To_Customer__c = true;
+                        smsText.Is_Transfer_Message__c = true;
+
+                        sforce.connection.create([smsText]);
+
+                        this.logMessage('created sms text record', smsText);
+                    }
+
+                    //open new tab
+                    var tabUrl = '/{!$ObjectType.LiveText__Conversation_Session__c}/e?cvid=' + this.normalizeId();
+                    var tabTitle = '{!HTMLENCODE($Label.livetext__txt_conversation)}';
+                    console.log('The title is set as ',this.data.contactName);
+                    sforce.console.openPrimaryTab(null, tabUrl, true, this.data.contactName, null);
+
+                    //this.closeCurrentTab();
+                    sforce.console.setTabTitle('', this.currentTabId);
+
+                    return true;
+                }
+
+                return false;
+            },
+
+            /**
+             * Check if the enclosing tab is in focus, if not mark it according to the highlightThresholds
+             */
+            highlightTab: function () {
+                /*
+                  Disabled by Sven Kretschmann on 14.02.2019, not required in this context, but in console context.
+                  See IntegratedComponent for same logic.
+                 */
+                //sforce.console.getFocusedPrimaryTabId(this.boundFunctions.highlightTabResponseHandler);
+            },
+
+            /**
+             * Handle the response of the getFocusedPrimaryTabId call for the highlightTab function
+             */
+            handleHighlightTabResponse: function (response) {
+                if (response.id === this.currentTabId) {
+                    /* this will reset the timeout, leading to the first threshold (should be 0) to be applied */
+                    this.lastFocusTime = new Date();
+                }
+
+                var age = new Date() - this.lastFocusTime;
+                var targetColor = null;
+
+                this.logMessage('tab not visited since (milliseconds)', age);
+
+                this.configuration.highlightThresholds.forEach(function (threshold) {
+                    if (age > threshold.timeout) {
+                        targetColor = threshold.color;
+                    }
+                }, this);
+
+                this.logMessage('target color', targetColor);
+
+                if (targetColor) {
+                    sforce.console.setTabStyle('background:' + targetColor + ';', this.currentTabId);
+                } else {
+                    sforce.console.setTabStyle('', this.currentTabId);
+                }
+            },
+
+            /**
+             * Unlock the given tab
+             *
+             * @param callback
+             */
+            unlockCurrentTab: function (callback) {
+                var unlockPrimaryTab = function () {
+                    sforce.console.disableTabClose(false, this.currentTabId, callback);
+                }.bind(this);
+
+                sforce.console.getSubtabIds(this.currentTabId, function (subTabIds) {
+                    if (!subTabIds.ids) {
+                        /* no subtabs, immediately close */
+                        unlockPrimaryTab();
+                        return;
+                    }
+
+                    var subTabCount = subTabIds.ids.length;
+
+                    subTabIds.ids.forEach(function (subTabId) {
+                        sforce.console.disableTabClose(false, subTabId, function (response) {
+                            this.logMessage('unlocked subtab', response);
+
+                            subTabCount--;
+                            if (subTabCount === 0) {
+                                unlockPrimaryTab();
+                            }
+                        }.bind(this), subTabId);
+                    }, this);
+                }.bind(this));
+            },
+
+            /**
+             * Close a single tab. Will unlock the tab and mark all subtabs as clean before closing to prevent
+             * any dialogs.
+             */
+            closeCurrentTab: function () {
+                this.logMessage('Trying to close tab for session', this.currentTabId);
+
+                var closePrimaryTab = function () {
+                    sforce.console.closeTab(this.currentTabId, function (closeResponse) {
+                        this.logMessage('Closed tab', closeResponse);
+                    }.bind(this));
+                }.bind(this);
+
+                this.unlockCurrentTab(function (closeDisableResponse) {
+                    this.logMessage('Enabled tab closing', closeDisableResponse, closeDisableResponse.message);
+
+                    sforce.console.getSubtabIds(this.currentTabId, function (subTabIds) {
+                        if (!subTabIds.ids) {
+                            /* no subtabs, immediately close */
+                            closePrimaryTab();
+                            return;
+                        }
+
+                        var subTabCount = subTabIds.ids.length;
+
+                        /* mark all subtabs clean to prevent asking for confirmation */
+                        subTabIds.ids.forEach(function (subTabId) {
+                            sforce.console.setTabUnsavedChanges(false, function (markCleanResponse) {
+                                this.logMessage('Marked tab clean', markCleanResponse, markCleanResponse.success);
+
+                                subTabCount--;
+                                this.logMessage('Remaining subtabs to mark clean:', subTabCount);
+                                if (subTabCount === 0) {
+                                    closePrimaryTab();
+                                }
+                            }.bind(this), subTabId);
+                        }, this);
+                    }.bind(this));
+                }.bind(this));
+            },
+
+            /**
+             * Returns the 18 character version of the data id
+             */
+            normalizeId: function () {
+                if (this.data.id.length === 18) {
+                    return this.data.id;
+                }
+
+                var y = this.data.id.split('\r').join('').split('\n');
+
+                var z = [];
+                for (var x = 0; x < y.length; x++) {
+                    var s = '';
+
+                    for (var i = 0; i < 3; i++) {
+                        var f = 0;
+
+                        for (var j = 0; j < 5; j++) {
+                            var c = y[x].charAt(i * 5 + j);
+
+                            if (c >= 'A' && c <= 'Z') {
+                                f += 1 << j;
+                            }
+                        }
+
+                        s += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ012345'.charAt(f);
+                    }
+
+                    z.push(y[x] + s);
+                }
+
+                return z.join('\r\n');
+            },
+
+            /**
+             * If debugging is enabled, this will log the message and any additional argument to the console.
+             *
+             * @param message
+             */
+            logMessage: function (message) {
+                if (this.configuration.debug) {
+                    var args = new Array(arguments.length + 1);
+                    args[0] = 'LiveMessageHiddenPage:';
+
+                    for (var i = 0; i < arguments.length; i++) {
+                        args[i + 1] = arguments[i];
+                    }
+
+                    console.log.apply(console, args);
+                }
+            },
+
+            /** remove the logout check and make sure  its unchecked **/
+            removelogout : function () {
+                //Sudipta - Modification for the US 536
+                if ((this.data.status === 'New' || this.data.status === 'Active') && this.data.logout) {
+                    //update session
+                    var session = new sforce.SObject('LiveText__Conversation_Header__c');
+                    session.Id = this.data.id;
+                    session.Logout__c = false;
+                    sforce.connection.update([session]);
+                    console.log('The Update has been called');
+
+                    //Create a new message for the Agent - mod on 14.03.2019
+                    var smsText = new sforce.SObject('LiveText__SMS_Text__c');
+                    smsText.LiveText__Conversation_Header__c = this.data.id;
+                    smsText.LiveText__Message__c = '{!HTMLENCODE($Label.LiveText_PreviousAgentWentoffline)}';
+                    smsText.LiveText__Source__c = 'Salesforce';
+                    smsText.LiveText__Originating_Number__c = this.data.channelNumber;
+                    smsText.LiveText__Support_Number__c = this.data.channelSfId;
+                    smsText.LiveText__Sent_To_Customer__c = true;
+                    smsText.Is_Transfer_Message__c = true;
+                    sforce.connection.create([smsText]);
+                    console.log('The query is being called');
+
+                    //query to check if the record has been updated else update it -mod on 14.03.2019
+                    var Sessioncrecords = sforce.connection.query(
+                        "SELECT Logout__c From LiveText__Conversation_Header__c Where id='"+this.data.id+"'");
+                    console.log('Records',Sessioncrecords.records.Logout__c.toString());
+
+                    //call method again if it didnt work the first time
+                    if (Sessioncrecords.records.Logout__c.toString()=='true')
+                    {
+                        this.removelogout();
+                    }
+
+                }
+            }
+
+        };
+
+        window.onload = function (event) {
+            LiveMessageHiddenPage.initialize({
+                sessionId: '{!$Api.Session_ID}',
+                highlightThresholds: [
+                    {timeout: parseInt('{!$Setup.LiveMessageSettings__c.TabYellowMarker__c}', 10), color: '#FFFF00'},
+                    {timeout: parseInt('{!$Setup.LiveMessageSettings__c.TabOrangeMarker__c}', 10), color: '#FFA500'}
+                ]
+            });
+
+            LiveMessageHiddenPage.start();
+        };
+    </script>
+</apex:page>

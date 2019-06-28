@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>LiveMessageSettings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>LiveMessageSettings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Customer Data URL --></label>
+        <name>CustomerDataURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer number length --></label>
+        <name>CustomerNumberLength__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Number RegEx --></label>
+        <name>CustomerNumberRegEx__c</name>
+    </fields>
+    <fields>
+        <label><!-- CustomerServicePassword --></label>
+        <name>CustomerServicePassword__c</name>
+    </fields>
+    <fields>
+        <label><!-- CustomerServiceURL --></label>
+        <name>CustomerServiceURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- CustomerServiceUser --></label>
+        <name>CustomerServiceUser__c</name>
+    </fields>
+    <fields>
+        <label><!-- IdleMessageTime --></label>
+        <name>IdleMessageTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Minutes to block after fb retries limit --></label>
+        <name>MinutesToBlockAfterFbRetriesLimit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Minutes to block after retries limit --></label>
+        <name>MinutesToBlockAfterRetriesLimit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of facebook retries --></label>
+        <name>NumberOfFacebookRetries__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of retries --></label>
+        <name>NumberOfRetries__c</name>
+    </fields>
+    <fields>
+        <label><!-- Retention Campaign Type --></label>
+        <name>RetentionCampaignType__c</name>
+    </fields>
+    <fields>
+        <label><!-- Siebel Link --></label>
+        <name>Siebel_Link__c</name>
+    </fields>
+    <fields>
+        <label><!-- TabOrangeMarker --></label>
+        <name>TabOrangeMarker__c</name>
+    </fields>
+    <fields>
+        <label><!-- TabYellowMarker --></label>
+        <name>TabYellowMarker__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

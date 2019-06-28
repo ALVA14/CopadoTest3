@@ -1,0 +1,17 @@
+<!--
+ - Created by skarmakar on 7/22/18.
+ -->
+
+<apex:page id="ListenToChatsPage" sideBar="false" showHeader="false">
+    <apex:slds />
+    <apex:includeLightning />
+    <div id="lightning" />
+
+    <script>
+        $Lightning.use("c:ShowCustomerDataApp", function() {
+            $Lightning.createComponent("c:LiveSessionHeadersDisplayCMP",null ,"lightning");
+        });
+
+
+    </script>
+</apex:page>

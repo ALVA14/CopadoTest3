@@ -1,0 +1,160 @@
+<!--
+Author:      Sudipta Karmakar
+Company:     Salesforce
+Description:
+
+Attributes:
+Event Handlers:
+History
+7/30/18    Sudipta Karmakar   Initial version
+-->
+<aura:component description="LiveSessionHeadersDisplayCMP" controller="LiveSessionHeaders_CC">
+    <aura:attribute name="livesessions" type="Object"/>
+    <aura:attribute name="selectedQueue" type="Object"/>
+    <aura:attribute name="conversationsByAgent" type="Object"/>
+    <aura:attribute name="selectedConversations" type="Object[]"/>
+    <aura:attribute name="sTabId" type="String" access="private"/>
+    <aura:attribute name="topic" type="string" required="true"/>
+    <aura:attribute name="sessionId" type="String"/>
+    <aura:attribute name="baseUrl" type="String"/>
+    <aura:attribute name="cometd" type="Object"/>
+    <aura:attribute name="queueOptions" type="List" default="[]"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <ltng:require scripts="{!$Resource.cometd}" afterScriptsLoaded="{!c.onCometdLoaded}"/>
+
+    <lightning:card iconName="standard:feedback" title="{!$Label.c.LiveSessionHeadersDisplay_Widget_Title}"
+                    class="slds-m-around_small slds-p-horizontal_small">
+        <aura:set attribute="actions">
+            <lightning:combobox aura:id="selectItem" name="queue"
+                                placeholder="{!$Label.c.LiveSessionHeadersDisplay_QueueSelector_Placeholder}"
+                                label="{!$Label.c.LiveSessionHeadersDisplay_QueueSelector_Label}"
+                                value="{!v.selectedQueue}"
+                                dropdownAlignment="right"
+                                variant="standard"
+                                messageWhenValueMissing="{!$Label.c.LiveSessionHeadersDisplay_QueueSelector_Placeholder}"
+                                onchange="{!c.handleQueueSelected}"
+                                options="{!v.queueOptions}">
+            </lightning:combobox>
+        </aura:set>
+
+        <aura:if isTrue="{!v.conversationsByAgent.length == 0}">
+            <div class="slds-truncate slds-text-align_center slds-text-heading_medium slds-m-top_medium">
+                <span>{!$Label.c.LiveSessionHeadersDisplay_Widget_NoConversationsMessage}</span>
+            </div>
+
+            <aura:set attribute="else">
+                <aura:iteration var="agentConversations" items="{!v.conversationsByAgent}">
+                    <c:CollapsibleSection title="{!agentConversations.value[0].LiveText__AcceptedBy__r.Name}">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                            <thead>
+                            <tr class="slds-text-title_caps">
+                                <th scope="col">
+                                    <div class="slds-truncate"
+                                         title="{!$Label.c.LiveSessionHeadersDisplay_Session_Name}">
+                                        {!$Label.c.LiveSessionHeadersDisplay_Session_Name}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate"
+                                         title="{!$Label.c.LiveSessionHeadersDisplay_Session_CaseNumber}">
+                                        {!$Label.c.LiveSessionHeadersDisplay_Session_CaseNumber}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate"
+                                         title="{!$Label.c.LiveSessionHeadersDisplay_Session_ContactName}">
+                                        {!$Label.c.LiveSessionHeadersDisplay_Session_ContactName}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate"
+                                         title="{!$Label.c.LiveSessionHeadersDisplay_Session_Status}">
+                                        {!$Label.c.LiveSessionHeadersDisplay_Session_Status}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate"
+                                         title="{!$Label.c.LiveSessionHeadersDisplay_Session_Channel}">
+                                        {!$Label.c.LiveSessionHeadersDisplay_Session_Channel}
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <aura:iteration var="conversation" items="{!agentConversations.value}">
+                                <tr>
+                                    <th scope="row">
+                                        <div class="slds-truncate" onclick="{!c.showSession}"
+                                             data-status="{!conversation.LiveText__Status__c}" data-id="{!conversation.Id}"
+                                             data-name="{!conversation.LiveText__Contact__r.Name}"><a>{!conversation.Name}</a></div>
+                                    </th>
+                                    <td>
+                                        <div class="slds-truncate" title="{!conversation.LiveText__Case__r.CaseNumber}">
+                                            {!conversation.LiveText__Case__r.CaseNumber}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title="{!conversation.LiveText__Contact__r.Name}">
+                                            {!conversation.LiveText__Contact__r.Name}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title="{!conversation.LiveText__Status__c}">
+                                            {!conversation.LiveText__Status__c}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title="{!conversation.LiveText__LiveText_Number__c}">
+                                            {!conversation.LiveText__LiveText_Number__c}
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </aura:iteration>
+                            </tbody>
+                        </table>
+
+                    </c:CollapsibleSection>
+                </aura:iteration>
+            </aura:set>
+        </aura:if>
+    </lightning:card>
+
+    <aura:if isTrue="{!v.conversationsByAgent.length != 0}">
+        <div class="slds-m-around--medium">
+            <div class="slds-tabs--default">
+                <ul class="slds-tabs--default__nav" role="tablist">
+                    <aura:iteration items="{!v.selectedConversations}" var="conversation">
+                        <li aura:id="tabidscreated"
+                            class="slds-tabs_default__item slds-text-title_caps slds-active slds-is-relative slds-p-right_large"
+                            title="{!conversation.Id}" role="presentation">
+
+                            <div style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); ">
+                                <lightning:button variant="base" iconName="utility:close" onclick="{!c.closetab}" title="{!conversation.Id}"
+                                                  class="slds-button_icon slds-button_icon-container slds-button_icon-x-small"
+                                />
+                            </div>
+
+                            <a class="slds-tabs--default__link" href="javascript:void(0);"
+                               onclick="{!c.showhidetab}" role="tab" tabindex="0" aria-selected="false"
+                               aria-controls="{!'tab-default-' + conversation.Id}" id="{!'tab-'+conversation.Id}"
+                               data-val="{!conversation.Id}">{!conversation.Name}</a>
+
+                        </li>
+                    </aura:iteration>
+                </ul>
+
+                <aura:iteration items="{!v.selectedConversations}" var="conversation">
+                    <div aura:id="TabidsData" id="{!'tab-default-' + conversation.Id}" class="slds-tabs--default__content slds-show"
+                         role="tabpanel" title="{!conversation.Id}" aria-labelledby="Tabidscreated">
+
+                        <c:ShowChatScreenCMP livesessionid="{!conversation.Id}" aura:id="ChatScreens"/>
+
+                    </div>
+                </aura:iteration>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

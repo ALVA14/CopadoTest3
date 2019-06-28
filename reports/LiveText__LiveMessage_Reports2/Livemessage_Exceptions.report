@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>LiveText__Exception__c.LiveText__ErrorDescription__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__Exception__c.LiveText__AssociatedUser__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__Exception__c.LiveText__Priority__c</field>
+    </columns>
+    <columns>
+        <field>LiveText__Exception__c.LiveText__ObjectId__c</field>
+    </columns>
+    <columns>
+        <field>CUST_ID</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Livemessage Exceptions</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$LiveText__Exception__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

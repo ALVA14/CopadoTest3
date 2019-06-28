@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Care Service</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>Care_Service</publicGroup>
+        </publicGroups>
+        <users>
+            <user>stefano.pramparo@external.sky.de</user>
+            <user>skarmakar@external.sky.de</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>Care_Service</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>LiveText__Conversation_Header__c</sobjectType>
+    </queueSobject>
+</Queue>

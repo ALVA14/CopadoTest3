@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>LiveMessage Session Assignment Setting</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>LiveMessage Session Assignment Settings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Is Retention --></label>
+        <name>IsRetention__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Test --></label>
+        <name>IsTest__c</name>
+    </fields>
+    <fields>
+        <label><!-- Queue API Name --></label>
+        <name>QueueAPIName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Support Option --></label>
+        <name>SupportOption__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

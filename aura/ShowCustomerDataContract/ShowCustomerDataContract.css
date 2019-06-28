@@ -1,0 +1,15 @@
+.THIS td {
+    vertical-align: top;
+}
+
+/*
+ * :UGLY:
+ * Need to overwrite the styles to support nesting sections.
+ */
+.THIS .slds-section:not(.slds-is-open) > .slds-section__content {
+    padding-top: 0;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+}

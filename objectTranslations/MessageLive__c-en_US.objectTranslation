@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>MessageLive</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>MessageLives</value>
+    </caseValues>
+    <fields>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ending Line --></label>
+        <name>Ending_Line__c</name>
+    </fields>
+    <fields>
+        <label><!-- LiveMessage Number --></label>
+        <name>LiveMessageNumber__c</name>
+        <relationshipLabel><!-- MessageLives --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Message Retry --></label>
+        <name>Message_Retry__c</name>
+    </fields>
+    <fields>
+        <label><!-- Message --></label>
+        <name>Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Starting Line --></label>
+        <name>Starting_Line__c</name>
+    </fields>
+    <recordTypes>
+        <label><!-- DefaultCustomerMessage --></label>
+        <name>DefaultCustomerMessage</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- DefaultOptionMessage --></label>
+        <name>DefaultOptionMessage</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- GreetingMessage --></label>
+        <name>GreetingMessage</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Limit Message Facebook --></label>
+        <name>LimitMessageFacebook</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Limit Message SMS --></label>
+        <name>LimitMessageSMS</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- MessageCustomCustomerMessage --></label>
+        <name>MessageCustomCustomerMessage</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- MessageCustomOptionMessage --></label>
+        <name>MessageCustomOptionMessage</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

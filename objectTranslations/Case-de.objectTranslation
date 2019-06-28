@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- StoryFieldSet --></label>
+        <name>vlocity_cmt__StoryFieldSet</name>
+    </fieldSets>
+    <fields>
+        <caseValues>
+            <caseType>Nominative</caseType>
+            <plural>false</plural>
+            <value>Kontaktkanal</value>
+        </caseValues>
+        <caseValues>
+            <caseType>Nominative</caseType>
+            <plural>true</plural>
+            <value>Kontaktkanäle</value>
+        </caseValues>
+        <gender>Masculine</gender>
+        <name>case_origin</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <caseType>Nominative</caseType>
+            <plural>false</plural>
+            <value>Kundenberater</value>
+        </caseValues>
+        <caseValues>
+            <caseType>Nominative</caseType>
+            <plural>true</plural>
+            <value>Kundenberater</value>
+        </caseValues>
+        <gender>Masculine</gender>
+        <name>case_owner</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <caseType>Nominative</caseType>
+            <plural>false</plural>
+            <value>Kundenberater-Kürzel</value>
+        </caseValues>
+        <caseValues>
+            <caseType>Nominative</caseType>
+            <plural>true</plural>
+            <value>Kundenberater-Kürzel</value>
+        </caseValues>
+        <gender>Neuter</gender>
+        <name>case_owner_alias</name>
+    </fields>
+    <fields>
+        <label><!-- Is Retention --></label>
+        <name>Is_Retention__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Agent --></label>
+        <name>LastAgent__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- ResponsibleAgencyId --></label>
+        <name>ResponsibleAgencyId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ResponsibleAgency --></label>
+        <name>ResponsibleAgency__c</name>
+    </fields>
+    <fields>
+        <label><!-- SiebelLink --></label>
+        <name>SiebelLink__c</name>
+    </fields>
+    <fields>
+        <label><!-- SupportOption --></label>
+        <name>SupportOption__c</name>
+    </fields>
+    <fields>
+        <label><!-- UsedLiveMessageNo --></label>
+        <name>UsedLiveMessageNo__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- WaitingForCustomer --></label>
+        <name>WaitingForCustomer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount --></label>
+        <name>vlocity_cmt__Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- DisputeId --></label>
+        <name>vlocity_cmt__DisputeId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dispute ID --></label>
+        <name>vlocity_cmt__Dispute_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Follow Up To --></label>
+        <name>vlocity_cmt__FollowUpTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Indicator Image Name --></label>
+        <name>vlocity_cmt__IndicatorImageName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Premises --></label>
+        <name>vlocity_cmt__PremisesId__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Priority Image Name --></label>
+        <name>vlocity_cmt__PriorityImageName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Service ID --></label>
+        <name>vlocity_cmt__ServiceId__c</name>
+        <relationshipLabel><!-- Cases --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Statement --></label>
+        <name>vlocity_cmt__StatementId__c</name>
+        <relationshipLabel><!-- Disputes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Statement Line Item --></label>
+        <name>vlocity_cmt__StatementLineItemId__c</name>
+        <relationshipLabel><!-- Disputes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Status Image Name --></label>
+        <name>vlocity_cmt__StatusImageName__c</name>
+    </fields>
+    <recordTypes>
+        <label><!-- LiveMessage --></label>
+        <name>LiveMessage</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Billing complaint. --></description>
+        <label><!-- Billing --></label>
+        <name>vlocity_cmt__Billing</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Mobile Phone Case --></description>
+        <label><!-- MobilePhoneCase --></label>
+        <name>vlocity_cmt__MobilePhoneCase</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- There is something wrong with the service provided or a product associated with that service. --></description>
+        <label><!-- Service --></label>
+        <name>vlocity_cmt__Service</name>
+    </recordTypes>
+    <webLinks>
+        <label>Kundenvorgang schließen</label>
+        <name>Close_Case_default</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Bulk_SMS --></label>
+        <name>LiveText__Send_Bulk_SMS</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Message --></label>
+        <name>Send_Message</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Transfer --></label>
+        <name>Transfer</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Waiting_for_Information --></label>
+        <name>Waiting_for_Information</name>
+    </webLinks>
+</CustomObjectTranslation>

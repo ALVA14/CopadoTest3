@@ -1,0 +1,157 @@
+<apex:page standardStylesheets="false" showHeader="true" sidebar="false" controller="vlocity_cmt.ContractVersionViewController" tabStyle="Contract">  
+    <html xmlns:ng="http://angularjs.org" lang="en">
+        <head>
+            <meta charset="utf-8"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_cmt__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_cmt__vlocity_assets, '/css/font-hack.css')}"/> 
+            <apex:stylesheet value="{!$Resource.vlocity_cmt__DocumentBaseCss}" />
+            <apex:stylesheet value="{!$Resource.vlocity_cmt__ContractDocumentSectionViewCss}"/>
+
+            <apex:includeScript value="/support/console/42.0/integration.js"/>
+            <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+            <apex:includeScript value="/xdomain/xdomain.js"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_cmt__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_cmt__angular_strap_bundle_1_6)}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_cmt__tinymceIce, '/js/tinymce/tinymce.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_cmt__ui_tinymce, '/src/tinymce.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_cmt__angular_utils_pagination, '/dirPagination.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_cmt__docxtemplater_bundle, '/jszip/jszip.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_cmt__docxtemplater_bundle, '/vendor/jszip-utils.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_cmt__docxtemplater_bundle, '/vendor/file-saver.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_cmt__docxtemplater_bundle, '/build/docxtemplater.v3.5.0.min.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_cmt__ViaDirectives}"/>
+            <apex:includeScript value="{!$Resource.vlocity_cmt__SldsAngular}"/>
+            <apex:includeScript value="{!$Resource.vlocity_cmt__ContractDocumentSectionViewApp}"/>
+        </head>
+        <body>
+            <div class="vlocity via-slds vloc-body" ng-app="contractDocumentSectionViewApp" ng-controller="contractDocumentSectionViewCtrl" via-affix="top" via-screen-height="viaScreenHeight">
+                <div class="slds-spinner_container" ng-show="vlcLoading">
+                    <div class="slds-spinner slds-spinner_brand slds-spinner_large" aria-hidden="false" role="status">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+                <div class="slds-page-header custom-contract-creation-header" role="banner">
+                    <div class="slds-grid slds-grid--vertical-align-center">
+                        <div class="slds-size--1-of-2" role="banner">
+                            <div class="slds-media slds-no-space slds-grow">
+                                <div class="slds-media__figure">
+                                    <slds-svg-icon id="document-creation-icon" sprite="'standard'" icon="'contract'" size="'medium'" extra-classes="'slds-icon-standard-contract'"></slds-svg-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h1 class="slds-page-header__title custom slds-m-right--small slds-align-middle slds-truncate" title="Contract Document Customization">Contract Document Customization</h1>
+                                    <p class="slds-text-heading--label slds-line-height--reset">{{contractVersion.Name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-size--1-of-2">
+                            <div class="slds-button-group slds-float_right" role="group">
+                                <button class="slds-button slds-button_neutral" ng-if="!showTemplateSelection()" ng-click="navigateBack()">
+                                    <slds-button-svg-icon id="back-to-contract" sprite="'utility'" icon="'back'" size="'small'" extra-classes="'slds-button__icon_left'"></slds-button-svg-icon>
+                                    {!$Label.ContractGoBack}
+                                </button>
+                                <button class="slds-button slds-button--neutral" ng-if="!isTemplateBatchable" ng-click="gotoPageView()">
+                                    {!$Label.CLMDocGenSwitchToPageView}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE CONTENT -->
+                <div class="three-col-body center-collapsed" ng-init="collapseCenter = true" ng-class="{'center-collapsed': collapseCenter}">
+                    <div class="left-col template">
+                        <div class="col-body template">
+                            <div class="body-header slds-has-divider_bottom">
+                                <p class="slds-text-heading_label col-header-text">{!$Label.CLMTemplateDocumentSections}</p>
+                            </div>
+                            <ul ng-if="sections.length" class="existing-data draggable-items" dnd-list="sectionsArray" dnd-dragover="startDragging(event)">
+                                <li class="search template-{{statusClass}}">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                            <slds-input-svg-icon sprite="'utility'" icon="'search'" size="'small'" extra-classes="'slds-icon-text-default'"></slds-input-svg-icon>
+                                            <input id="search-template" type="search" class="slds-input" ng-model="templateFilterText" placeholder="{{labels.CLMTemplateSearchTempaltes}}"/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li ng-repeat="section in sections | filter:templateFilterText | orderBy:'section.sequence'" ng-click="showSectionContent(section)" class="template-{{statusClass}}" ng-class="{'active': section.sequence === currentSectionSequence, 'dnd-disabled': templateActive || !validationErrors.sections[section.sequence].sectionSaved}" dnd-draggable="section" dnd-effect-allowed="move" dnd-moved="reorderSequences($index, event)" add-hover-class="true">
+                                    <span class="data-name slds-truncate">{{section.name}}</span>
+                                    <span class="data-type">{{section.type}}</span>
+                                    <span class="slds-icon_container section-not-saved-icon" title="{{labels.CLMTemplateSectionNotSaved}}" ng-if="!validationErrors.sections[section.sequence].sectionSaved" data-placement="left">
+                                        <slds-svg-icon id="section-not-saved-icon" sprite="'utility'" icon="'rows'" size="'small'"></slds-svg-icon>
+                                        <span class="slds-assistive-text">{{labels.CLMTemplateSectionNotSaved}}</span>
+                                    </span>
+                                    <span class="contract-icon sequence">{{section.sequence+1}}</span>
+                                    <i class="contract-icon icon icon-v-right-caret"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- right column -->
+                    <div class="right-col">
+                        <div ng-if="templateDeactivateErrorMsg" class="slds-notify slds-notify_alert slds-theme_error slds-theme_alert-texture" role="alert" ng-bind-html="templateDeactivateErrorMsg" ng-click="clearTemplateDeactivateErrorMsg()">
+                        </div>
+                        <div class="col-body template-details">
+                            <div ng-if="currentSectionSequence === null && templateData.sections.length === 0 && !search" class="slds-page-header__title slds-p-around_small slds-m-top_x-large slds-text-align_center">
+                                {{labels.CLMTemplateNoSectionsTemplate}}
+                                <div ng-if="templateData.templateId" class="slds-form-element__label slds-size_1-of-1">
+                                    {{labels.CLMTemplateClickAddNewSection}}
+                                </div>
+                                <div ng-if="!templateData.templateId" class="slds-form-element__label slds-size_1-of-1">{{labels.CLMTemplateCreateNewTemplateSetting}}</div>
+                            </div>
+                            <!-- Section Form -->
+                            <check-section-saved class="section-form" ng-repeat="section in sections"  ng-class="{'active-section': section.sequence === currentSectionSequence}" ng-show="section.sequence === currentSectionSequence" doc-section="section" validation-errors="validationErrors">
+                                <div ng-if="section.sectionType === 'Conditional' && !conditionalClauses" class="alert alert-warning" role="alert">
+                                    {{labels.CLMTemplateNoConditionalClauseFound}}
+                                </div>
+                                <div class="slds-clearfix slds-m-bottom_medium">
+                                    <div class="slds-float_right" ng-if="showContentEditor">
+                                        <button type="button" class="slds-button slds-button_brand" ng-click="saveTemplateSection(section)" ng-disabled="validationErrors.sections[section.sequence].sectionSaved">
+                                            <i class="icon icon-v-check-circle" ng-if="validationErrors.sections[section.sequence].sectionSaved"></i>
+                                            {!$Label.SaveSectionBtn}
+                                        </button>
+                                    </div>
+                                    <div class="slds-float_left slds-m-top_xx-small" ng-class="{'has-error': validationErrors.templateName}">
+                                        <span class="slds-page-header__title">{{section.name}}</span>
+                                        <span ng-if="validationErrors.sections[section.sequence].sectionName" class="help-block" role="alert" aria-live="polite">{{validationErrors.sections[section.sequence].sectionName}}</span>
+                                    </div>
+                                </div>
+                                <div class="rich-text-editor" ng-if="showContentEditor">
+                                    <textarea ui-tinymce="tinymceOptions" ng-model="section.content" class="tinymce-editor"></textarea>
+                                    <span ng-if="validationErrors.sections[section.sequence].content" class="help-block">{{validationErrors.sections[section.sequence].content}}</span>
+                                    <span ng-if="validationErrors.sections[section.sequence].sectionWarning.limitWarning" class="help-block">{{validationErrors.sections[section.sequence].sectionWarning.limitWarning}}</span>
+                                </div>
+                                <div ng-if="!showContentEditor">
+                                    This is a custom section with no content.
+                                </div>
+                            </check-section-saved>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                var nameSpacePrefix, contractId, baseRequestUrl, remoteActions, labels;
+                nameSpacePrefix = '{!nameSpacePrefix}';
+                contractId = '{!$CurrentPage.parameters.Id}';
+                baseRequestUrl = '{!$Site.BaseRequestUrl}';
+                remoteActions = {
+                    getSectionViewData: {
+                        action: '{!$RemoteAction.ContractVersionViewController.getSectionViewData}',
+                        config: {escape: false}
+                    },
+                    getSectionContent: {
+                        action: '{!$RemoteAction.ContractVersionViewController.getSectionContent}',
+                        config: {escape: false}
+                    }
+                };
+                labels = {
+                    'checkInDocLabel':'{!$Label.ContractCheckInDoc}',
+                    'customizeReadyCheckInLabel':'{!$Label.ContractCustomizeReadyCheckIn}',
+                    'yesCheckInLabel':'{!$Label.ContractYesCheckIn}',
+                    'noCheckInLabel':'{!$Label.ContractNoCheckIn}',
+                    'cancelLabel':'{!$Label.Cancel}'
+                };
+            </script>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Active Status Purge Hours --></label>
+        <name>LiveText__Active_Status_Purge_Hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- GlobalTriggerExecutionEnabled --></label>
+        <name>LiveText__GlobalTriggerExecutionEnabled__c</name>
+    </fields>
+    <fields>
+        <label><!-- New Status Purge Hours --></label>
+        <name>LiveText__New_Status_Purge_Hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Offline Status Purge Hours --></label>
+        <name>LiveText__Offline_Status_Purge_Hours__c</name>
+    </fields>
+</CustomObjectTranslation>

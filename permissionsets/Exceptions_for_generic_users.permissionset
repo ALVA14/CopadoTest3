@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Extra regulations to apply exclusively to generic users.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Exceptions for generic users</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>PasswordNeverExpires</name>
+    </userPermissions>
+</PermissionSet>

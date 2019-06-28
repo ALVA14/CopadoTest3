@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SamlSsoConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <identityLocation>SubjectNameId</identityLocation>
+    <identityMapping>Username</identityMapping>
+    <issuer>http://sts2.sky.de/adfs/services/trust</issuer>
+    <loginUrl>https://sts2.sky.de/adfs/ls/</loginUrl>
+    <name>sts2</name>
+    <oauthTokenEndpoint>https://skyde--CopadoDev.cs102.my.salesforce.com/services/oauth2/token?so=00D1j0000008chW</oauthTokenEndpoint>
+    <redirectBinding>true</redirectBinding>
+    <requestSignatureMethod>1</requestSignatureMethod>
+    <requestSigningCertId>0P10N0000016VFi</requestSigningCertId>
+    <salesforceLoginUrl>https://skyde--CopadoDev.cs102.my.salesforce.com?so=00D1j0000008chW</salesforceLoginUrl>
+    <samlEntityId>https://skyde--CopadoDev.cs102.my.salesforce.com</samlEntityId>
+    <samlVersion>SAML2_0</samlVersion>
+    <singleLogoutBinding>RedirectBinding</singleLogoutBinding>
+    <singleLogoutUrl>https://sts2.sky.de/adfs/ls/</singleLogoutUrl>
+    <userProvisioning>false</userProvisioning>
+    <validationCert>MIIC0jCCAbqgAwIBAgIQG9jz6oxHqohAsPqP9DxskTANBgkqhkiG9w0BAQsFADAlMSMwIQYDVQQDExpBREZTIFNpZ25pbmcgLSBzdHMyLnNreS5kZTAeFw0xOTA2MDgxMTIxMjJaFw0yMDA2MDcxMTIxMjJaMCUxIzAhBgNVBAMTGkFERlMgU2lnbmluZyAtIHN0czIuc2t5LmRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjuNxD3gzDEstXcrAcq8Do5dqm/cVT/tPxgEg1hWjDLjhMLzp/YflU40tJ7I7qjlRav4UYUW5Va0I+nC2YvhgTpXT0xxc3886yfCjiQqnNb/anoGRWI87c8gjjKhAOQhscasZSAby2gXhO/DP24dHa3oxnkAtNelWp7wyUvGEi2CtOjicEEAkJQn0x5+YEFdSy3DizUkMZfiXcSEqgaAphNDA9FbSHCEDuxnViyMhYsx6cqQvQJdsn6lvTFa8DtiJLuj0gu5lWL+9w/sWIP9LDXXvHH8rZwkPWCvI1+yaqlPi1Rvzmojt3FgnnlbykhRX9HXiuFspQmCb+UJhZr8FZwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQAOfbCh2PNlvDUQzIF4gX+DIVGb74g7IQQtwPEYXHvUW9CXpPWG71kbe+n+No6uAPmbe0QILZ87UCISyfoe8qSm5pmNAtM0viueCAmXusSS71rZ/edzKmRUvb3hCeR6PoD/T9pbR1CHprhUnbj9xKHgW/T8mOHLoC5lJtWa9LHGgqUqPSq6z+r7DLCeubzuo40mnpIAABoPPBKjIDeNJZAabISuUN8y2Lgt6LiH7n3rCHUPbV9po8GBLzGHHPuJDakvSt2A+j/IEAAgEzOoZG2Muci2sovRqdu92B8tgGLx9lJgQ3D3cOZL8V0+l2ItJZlbrvhx2hEwcWWY9t0rjG0s</validationCert>
+</SamlSsoConfig>

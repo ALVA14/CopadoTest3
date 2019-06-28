@@ -1,0 +1,138 @@
+<!--
+Author:      Sudipta Karmakar
+Company:     Salesforce
+Description:
+
+Attributes:
+Event Handlers:
+History
+7/21/18    Sudipta Karmakar   Initial version
+-->
+<aura:component description="ShowCustomerDataCmp" controller="CustomerData_CC">
+    <aura:attribute name="CustomerNumber" type="String" access="global"/>
+    <aura:attribute name="AssetNumber" type="String" access="global"/>
+    <aura:attribute name="isLoading" type="Boolean" access="global" default="true"/>
+    <aura:attribute name="customerData" type="Object"/>
+
+    <aura:attribute name="apiErrorMessage" type="String" access="private" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="container">
+        <aura:if isTrue="{!and(not(v.isLoading), not(v.customerData))}">
+            <div class="slds-text-align_center slds-text-heading_medium slds-m-top_medium">
+                <span>{!$Label.c.Customer_Data_No_customer_data}</span>
+            </div>
+
+            <aura:if isTrue="{!v.apiErrorMessage}">
+                <div class="slds-text-align_center slds-text-heading_medium slds-m-top_medium">
+                    <span>{!v.apiErrorMessage}</span>
+                </div>
+            </aura:if>
+        </aura:if>
+
+        <aura:if isTrue="{!v.isLoading}">
+            <div class="slds-text-align_center slds-text-heading_medium slds-m-top_medium">
+                <span>{!$Label.c.Customer_Data_Loading}</span>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.customerData}">
+            <div class="contentPanel">
+                <c:CollapsibleSection title="{!$Label.c.Customer_Data_Basic_Customer_Data}">
+                    <div class="slds-grid slds-wrap slds-p-horizontal_medium">
+                        <div class="slds-col slds-size_1-of-4">
+                            <c:DataListItem label="{!$Label.c.Customer_Data_First_Name}" labelCssClass="slds-text-color_weak"
+                                            value="{!v.customerData.Firstname}">
+                            </c:DataListItem>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <c:DataListItem label="{!$Label.c.Customer_Data_Last_Name}" labelCssClass="slds-text-color_weak"
+                                            value="{!v.customerData.Lastname}">
+                            </c:DataListItem>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <c:DataListItem label="{!$Label.c.Customer_Data_Email_address}" labelCssClass="slds-text-color_weak"
+                                            value="{!v.customerData.emailAddress}">
+                            </c:DataListItem>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <c:DataListItem label="{!$Label.c.Customer_Data_Date_of_birth}" labelCssClass="slds-text-color_weak"
+                                            value="{!v.customerData.dateOfBirth}">
+                            </c:DataListItem>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-wrap slds-m-top_medium slds-p-horizontal_medium">
+                        <div class="slds-col slds-size_1-of-4">
+                            <c:DataListItem label="{!$Label.c.Customer_Data_Customer_Category}" labelCssClass="slds-text-color_weak"
+                                            value="{!v.customerData.CustomerCategory}">
+                            </c:DataListItem>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <c:DataListItem label="{!$Label.c.Customer_Data_Customer_Status}" labelCssClass="slds-text-color_weak"
+                                            value="{!v.customerData.CustomerStatus}">
+                            </c:DataListItem>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <c:DataListItem label="{!$Label.c.Customer_Data_Last_Contact_Reason}" labelCssClass="slds-text-color_weak"
+                                            value="{!v.customerData.LastContactReason}">
+                            </c:DataListItem>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <c:DataListItem label="{!$Label.c.Customer_Data_Last_Contact_Date}" labelCssClass="slds-text-color_weak"
+                                            value="{!v.customerData.LastContactDate}">
+                            </c:DataListItem>
+                        </div>
+                    </div>
+
+                </c:CollapsibleSection>
+
+                <aura:iteration items="{!v.customerData.ContractList.Contract}" var="contract">
+                    <c:ShowCustomerDataContract contract="{!contract}"/>
+                </aura:iteration>
+
+                <aura:if isTrue="{!v.customerData.CampaignList.CampaignElement.length}">
+                    <c:CollapsibleSection title="{!$Label.c.Customer_Data_Campaign_List}">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_striped">
+                            <thead>
+                            <tr class="slds-text-title_caps">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Campaign_Type}">
+                                        {!$Label.c.Customer_Data_Campaign_Type}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Campaign_Family}">
+                                        {!$Label.c.Customer_Data_Campaign_Family}
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="{!$Label.c.Customer_Data_Campaign_Number}">
+                                        {!$Label.c.Customer_Data_Campaign_Number}
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <aura:iteration items="{!v.customerData.CampaignList.CampaignElement}" var="itm">
+                                <tr>
+                                    <td data-label="{!$Label.c.Customer_Data_Campaign_Type}">
+                                        <div class="slds-truncate" title="{!$Label.c.Customer_Data_Campaign_Type}">{!itm.CampaignType}</div>
+                                    </td>
+                                    <td data-label="{!$Label.c.Customer_Data_Campaign_Family}">
+                                        <div class="slds-truncate" title="{!$Label.c.Customer_Data_Campaign_Family}">{!itm.CampaignFamily}</div>
+                                    </td>
+                                    <td data-label="{!$Label.c.Customer_Data_Campaign_Number}">
+                                        <div class="slds-truncate" title="{!$Label.c.Customer_Data_Campaign_Number}">{!itm.CampaignNumber}</div>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                            </tbody>
+                        </table>
+                    </c:CollapsibleSection>
+                </aura:if>
+            </div>
+        </aura:if>
+    </div>
+</aura:component>
